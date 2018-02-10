@@ -13,29 +13,64 @@ public class QueenBoard{
     private boolean addQueen(int r, int c){
 	if (board[r][c] == 0){
 	    board[r][c] = -1;
-	    for (int x = r; x < board.length; x++){
+	    for (int x = r+1; x < board.length; x++){
 		board[x][c]++;
 	    }
-	    for (int x = c; x < board.length; x++){
+	    for (int x = c+1; x < board.length; x++){
 		board[r][x]++;
 	    }
+	    int y = c+1;
+	    for (int x = r+1; x < board.length; x++){
+		board[x][y]++;
+		y++;
+	    }
+	    int z = r-1;
+	    for (int x = c+1; x < board.length; x++){
+		if (z > -1){
+		    board[z][x]++;
+		    z--;
+		}
+	    }
+	    return true;
 	}
 	return false;
     }
 
     private boolean removeQueen(int r, int c){
-	return true;
+	if (board [r][c] == -1){
+	    board[r][c] = 0;
+	    for (int x = r+1; x < board.length; x++){
+		board[x][c]--;
+	    }
+	    for (int x = c+1; x < board.length; x++){
+		board[r][x]--;
+	    }
+	    int y = c+1;
+	    for (int x = r+1; x < board.length; x++){
+		board[x][y]--;
+		y++;
+	    }
+	    int z = r-1;
+	    for (int x = c+1; x < board.length; x++){
+		if (z > -1){
+		    board[z][x]--;
+		    z--;
+		}
+	    }	    
+	    return true;
+	}
+	return false;
     }
 
-    //0 represents a queen, any other number is an empty square
+    //-1 represents a queen, any other number is an empty square
     public String toString(){
 	String output = "";
-	for (int j = 1; j < board.length; j++){
-	    for (int k = 1; k < board.length; k++){
+	for (int j = 0; j < board.length; j++){
+	    for (int k = 0; k < board.length; k++){
 		if (board[j][k] == -1){
 		    output+="Q ";
 		}
-		else{output+="_ ";}
+		else{output+=board[j][k]+" ";}
 	    }
 	    output+="\n";
 	}
@@ -48,5 +83,14 @@ public class QueenBoard{
 
     public int countSolutions(){
 	return 0;
+    }
+
+    public static void main(String[]args){
+	QueenBoard b = new QueenBoard(4);
+	System.out.println(b.toString());
+	System.out.println(b.addQueen(1,1));
+	System.out.println(b.toString());
+	System.out.println(b.removeQueen(1,1));
+	System.out.println(b.toString());
     }
 }
