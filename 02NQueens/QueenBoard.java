@@ -13,8 +13,10 @@ public class QueenBoard{
     private boolean addQueen(int r, int c){
 	if (board[r][c] == 0){
 	    board[r][c] = -1;
-	    for (int x = r+1; x < board.length; x++){
-		board[x][c]++;
+	    for (int x = 0; x < board.length; x++){
+		if (board[x][c] != -1){
+		    board[x][c]++;
+		}
 	    }
 	    for (int x = c+1; x < board.length; x++){
 		board[r][x]++;
@@ -39,8 +41,10 @@ public class QueenBoard{
     private boolean removeQueen(int r, int c){
 	if (board [r][c] == -1){
 	    board[r][c] = 0;
-	    for (int x = r+1; x < board.length; x++){
-		board[x][c]--;
+	    for (int x = 0; x < board.length; x++){
+		if (board[x][c] != 0){
+		    board[x][c]--;
+		}
 	    }
 	    for (int x = c+1; x < board.length; x++){
 		board[r][x]--;
@@ -78,7 +82,18 @@ public class QueenBoard{
     }
 
     public boolean solve(){
-	return true;
+	for (int j = 0; j < board.length; j++){
+	    for (int k = 0; k < board.length; k++){
+		if (board[j][k] != 0){
+		    throw new IllegalStateException();
+		}
+	    }
+	}
+	return helper(board, 0);
+    }
+
+    public boolean helper(int[][] board, int row){
+        return true;
     }
 
     public int countSolutions(){
