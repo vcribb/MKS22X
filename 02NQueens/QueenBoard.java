@@ -13,18 +13,17 @@ public class QueenBoard{
     private boolean addQueen(int r, int c){
 	if (board[r][c] == 0){
 	    board[r][c] = -1;
-	    for (int x = 0; x < board.length; x++){
-		if (board[x][c] != -1){
-		    board[x][c]++;
-		}
-	    }
 	    for (int x = c+1; x < board.length; x++){
 		board[r][x]++;
 	    }
-	    int y = c+1;
-	    for (int x = r+1; x < board.length; x++){
-		board[x][y]++;
-		y++;
+	    if (c < board.length - 1){
+		int y = c+1;
+		int x = r+1;
+		while (x < board.length && y < board.length){
+		    board[x][y]++;
+		    y++;
+		    x++;
+		}
 	    }
 	    int z = r-1;
 	    for (int x = c+1; x < board.length; x++){
@@ -41,18 +40,17 @@ public class QueenBoard{
     private boolean removeQueen(int r, int c){
 	if (board [r][c] == -1){
 	    board[r][c] = 0;
-	    for (int x = 0; x < board.length; x++){
-		if (board[x][c] != 0){
-		    board[x][c]--;
-		}
-	    }
 	    for (int x = c+1; x < board.length; x++){
 		board[r][x]--;
 	    }
-	    int y = c+1;
-	    for (int x = r+1; x < board.length; x++){
-		board[x][y]--;
-		y++;
+	    if (c < board.length - 1){
+		int y = c+1;
+		int x = r+1;
+		while (x < board.length && y < board.length){
+		    board[x][y]--;
+		    y++;
+		    x++;
+		}
 	    }
 	    int z = r-1;
 	    for (int x = c+1; x < board.length; x++){
@@ -74,7 +72,7 @@ public class QueenBoard{
 		if (board[j][k] == -1){
 		    output+="Q ";
 		}
-		else{output+=board[j][k]+" ";}
+		else{output+="_ ";}
 	    }
 	    output+="\n";
 	}
@@ -89,11 +87,20 @@ public class QueenBoard{
 		}
 	    }
 	}
-	return helper(board, 0);
+	return helper(0);
     }
 
-    public boolean helper(int[][] board, int row){
-        return true;
+    public boolean helper(int col){
+        if (col >= board.length){
+	    return true;
+	}
+	for (int x = 0; x < board.length; x++){
+	    if (addQueen(x, col) && helper(col + 1)){
+		return true;
+	    }
+	    removeQueen(x, col);
+	}
+	return false;
     }
 
     public int countSolutions(){
@@ -106,6 +113,8 @@ public class QueenBoard{
 	System.out.println(b.addQueen(1,1));
 	System.out.println(b.toString());
 	System.out.println(b.removeQueen(1,1));
+	System.out.println(b.toString());
+	System.out.println(b.solve());
 	System.out.println(b.toString());
     }
 }
