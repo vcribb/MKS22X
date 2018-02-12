@@ -116,5 +116,6 @@ public class QueenBoard{
 	System.out.println(b.toString());
 	System.out.println(b.solve());
 	System.out.println(b.toString());
+	System.out.println(b.countSolutions());
     }
 }
