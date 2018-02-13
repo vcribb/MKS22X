@@ -104,18 +104,44 @@ public class QueenBoard{
     }
 
     public int countSolutions(){
-	return 0;
+	for (int j = 0; j < board.length; j++){
+	    for (int k = 0; k < board.length; k++){
+		if (board[j][k] != 0){
+		    throw new IllegalStateException();
+		}
+	    }
+	}
+	return helperc(0);
+    }
+
+    public int helperc(int col){
+	int n = 0;
+	if (col >= board.length){
+	    for (int j = 0; j < board.length; j++){
+		for (int k = 0; k < board.length; k++){
+		    board[j][k] = 0;
+		}
+	    }
+	    return n;
+	}
+	for (int x = 0; x < board.length; x++){
+	    if (addQueen(x, col) && helper(col + 1)){
+		n++;
+	    }
+	    removeQueen(x, col);
+	}
+	for (int j = 0; j < board.length; j++){
+	    for (int k = 0; k < board.length; k++){
+		board[j][k] = 0;
+	    }
+	}
+	return n;
     }
 
     public static void main(String[]args){
-	QueenBoard b = new QueenBoard(4);
-	System.out.println(b.toString());
-	System.out.println(b.addQueen(1,1));
-	System.out.println(b.toString());
-	System.out.println(b.removeQueen(1,1));
-	System.out.println(b.toString());
+	QueenBoard b = new QueenBoard(10);
+	System.out.println(b.countSolutions());
 	System.out.println(b.solve());
 	System.out.println(b.toString());
-	System.out.println(b.countSolutions());
     }
 }
