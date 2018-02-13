@@ -40,7 +40,22 @@ public class KnightBoard{
 	    startingRow >= board.length || startingCol >= board[0].length){
 	    throw new IllegalArgumentException();
 	}
+	for (int j = 0; j < board.length; j++){
+	    for (int k = 0; k < board[0].length; k++){
+		if (board[j][k]!=0){
+		    throw new IllegalStateException();
+		}
+	    }
+	}
+	return solveH(startingRow, startingCol, 0);
+    }
+
+    private boolean solveH(int row, int col, int level){
 	return true;
+    }
+
+    public int countSolutions(int startingRow, int startingCol){
+	return 0;
     }
 
     public static void main (String[]args){
