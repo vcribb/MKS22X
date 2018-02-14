@@ -111,37 +111,27 @@ public class QueenBoard{
 		}
 	    }
 	}
-	return helperc(0);
+	return helperc(0, 0);
     }
 
-    public int helperc(int col){
-	int n = 0;
-	if (col >= board.length){
-	    for (int j = 0; j < board.length; j++){
-		for (int k = 0; k < board.length; k++){
-		    board[j][k] = 0;
-		}
-	    }
-	    return n;
+    public int helperc(int col, int numSolutions){
+	if(col == board.length){
+	    numSolutions++;
+	    return numSolutions;
 	}
-	for (int x = 0; x < board.length; x++){
-	    if (addQueen(x, col) && helper(col + 1)){
-		n++;
-	    }
-	    removeQueen(x, col);
-	}
-	for (int j = 0; j < board.length; j++){
-	    for (int k = 0; k < board.length; k++){
-		board[j][k] = 0;
+	for(int j = 0; j < board.length; j++){
+	    if(addQueen(j, col)){
+		numSolutions = helperc(col + 1, numSolutions);
+		removeQueen(j,col);
 	    }
 	}
-	return n;
+	return numSolutions;
     }
 
     public static void main(String[]args){
-	QueenBoard b = new QueenBoard(10);
-	System.out.println(b.countSolutions());
-	System.out.println(b.solve());
-	System.out.println(b.toString());
+	for (int x = 0; x < 11; x++){
+	    QueenBoard b = new QueenBoard(x);
+	    System.out.println(x+": "+b.countSolutions());
+	}
     }
 }
