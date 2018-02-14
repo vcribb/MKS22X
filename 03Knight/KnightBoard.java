@@ -1,10 +1,9 @@
 public class KnightBoard{
-
     int[][]board;
 
     public KnightBoard(int startingRows, int startingCols){
 	if (startingRows < 0 || startingCols < 0){
-	    throw new IllegalArgumentException();
+	    throw new IllegalArgumentException("Invalid board size");
 	}
 	board = new int[startingRows][startingCols];
 	for (int j = 0; j < startingRows; j++){
@@ -19,7 +18,7 @@ public class KnightBoard{
 	for (int j = 0; j < board.length; j++){
 	    for (int k = 0; k < board[0].length; k++){
 		if (board[j][k] == 0){
-		    s+="__ ";
+		    s+=" _ ";
 		}
 		else{
 		    if (board[j][k]/10 == 0){
@@ -38,12 +37,12 @@ public class KnightBoard{
     public boolean solve(int startingRow, int startingCol){
 	if (startingRow < 0 || startingCol < 0 ||
 	    startingRow >= board.length || startingCol >= board[0].length){
-	    throw new IllegalArgumentException();
+	    throw new IllegalArgumentException("Invalid parameters");
 	}
 	for (int j = 0; j < board.length; j++){
 	    for (int k = 0; k < board[0].length; k++){
 		if (board[j][k]!=0){
-		    throw new IllegalStateException();
+		    throw new IllegalStateException("The board is not empty");
 		}
 	    }
 	}
@@ -55,6 +54,17 @@ public class KnightBoard{
     }
 
     public int countSolutions(int startingRow, int startingCol){
+	if (startingRow < 0 || startingCol < 0 ||
+	    startingRow >= board.length || startingCol >= board[0].length){
+	    throw new IllegalArgumentException("Invalid parameters");
+	}
+	for (int j = 0; j < board.length; j++){
+	    for (int k = 0; k < board[0].length; k++){
+		if (board[j][k]!=0){
+		    throw new IllegalStateException("The board is not empty");
+		}
+	    }
+	}
 	return 0;
     }
 
