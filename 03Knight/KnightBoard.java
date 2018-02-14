@@ -46,11 +46,14 @@ public class KnightBoard{
 		}
 	    }
 	}
-	return solveH(startingRow, startingCol, 0);
+	return solveH(startingRow, startingCol, 1);
     }
 
     private boolean solveH(int row, int col, int level){
-	return true;
+	if (level >= board.length * board[0].length){
+	    return true;
+	}
+	return false;
     }
 
     public int countSolutions(int startingRow, int startingCol){
@@ -69,9 +72,9 @@ public class KnightBoard{
     }
 
     public static void main (String[]args){
-	KnightBoard b = new KnightBoard(5, 5);
+	KnightBoard b = new KnightBoard(1, 2);
 	System.out.println(b.toString());
-	b.solve(1, 5);
+	System.out.println(b.solve(0, 0));
     }
     
 }
