@@ -51,12 +51,15 @@ public class KnightBoard{
     }
 
     private boolean solveH(int row, int col, int level){
-	if (level >= board.length * board[0].length){
+	if (row >= board.length || col >= board[0].length || row < 0 || col < 0){
+	    return false;
+	}
+	if (level > board.length * board[0].length){
 	    return true;
 	}
 	for (int r = 0; r < board.length; r++){
 	    for (int c = 0; c < board[0].length; c++){
-		if (board[r][c] == -1 && addKnight(r, c, level)){
+		if (board[r][c] < 0 && addKnight(r, c, level)){
 		    if (solveH(r+2, c+1, level+1)||
 			solveH(r+2, c-1, level+1)||
 			solveH(r-2, c+1, level+1)||
@@ -64,8 +67,7 @@ public class KnightBoard{
 			solveH(r+1, c+2, level+1)||
 			solveH(r+1, c-2, level+1)||
 			solveH(r-1, c+2, level+1)||
-			solveH(r-1, c-2, level+1)
-			){
+			solveH(r-1, c-2, level+1)){
 			return true;
 		    }
 		}
@@ -79,27 +81,59 @@ public class KnightBoard{
 	if (r < 0 || c < 0 || r >= board.length || c >= board[0].length){
 	    return false;
 	}
-	if (board[r][c] == -1){
-	    board[r][c] = level;
-	    try{board[r+2][c+1] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+2][c-1] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-2][c+1] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-2][c-1] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+1][c+2] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+1][c-2] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-1][c+2] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}	   
-	    try{board[r-1][c-2] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    return true;
+	if (board[r][c] > -1){
+	    return false;
 	}
-	return false;
+	board[r][c] = level;
+	try{
+	    if (board[r+2][c+1] == 0){
+		board[r+2][c+1] = -1;
+	    }
+	}
+	catch (ArrayIndexOutOfBoundsException e){}
+	try{
+	    if (board[r+2][c-1] == 0){
+		board[r+2][c-1] = -1;
+	    }
+	}
+	catch (ArrayIndexOutOfBoundsException e){}
+	try{
+	    if (board[r-2][c+1] == 0){
+		board[r-2][c+1] = -1;
+	    }
+	}
+	catch (ArrayIndexOutOfBoundsException e){}
+	try{
+	    if (board[r-2][c-1] == 0){
+		board[r-2][c-1] = -1;
+	    }
+	}
+	catch (ArrayIndexOutOfBoundsException e){}
+	try{
+	    if (board[r+1][c+2] == 0){
+		board[r+1][c+2] = -1;
+	    }
+	}
+	catch (ArrayIndexOutOfBoundsException e){}
+	try{
+	    if (board[r+1][c-2] == 0){
+		board[r+1][c-2] = -1;
+	    }
+	}
+	catch (ArrayIndexOutOfBoundsException e){}
+	try{
+	    if (board[r-1][c+2] == 0){
+		board[r-1][c+2] = -1;
+	    }
+	}
+	catch (ArrayIndexOutOfBoundsException e){}	   
+	try{
+	    if (board[r-1][c-2] == 0){
+		board[r-1][c-2] = -1;
+	    }
+	}
+	catch (ArrayIndexOutOfBoundsException e){}
+	return true;
     }
 
     private boolean removeKnight(int r, int c, int level){
@@ -108,21 +142,53 @@ public class KnightBoard{
 	}
 	if (board[r][c] == level){
 	    board[r][c] = 0;
-	    try{board[r+2][c+1] = 0;}
+	    try{
+		if (board[r+2][c+1] < 0){
+			board[r+2][c+1] = 0;
+		}
+	    }
 	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+2][c-1] = 0;}
+	    try{
+		if (board[r+2][c-1] < 0){
+		    board[r+2][c-1] = 0;
+		}
+	    }
 	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-2][c+1] = 0;}
+	    try{
+		if (board[r-2][c+1] < 0){
+		    board[r-2][c+1] = 0;
+		}
+	    }
 	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-2][c-1] = 0;}
+	    try{
+		if (board[r-2][c-1] < 0){
+		    board[r-2][c-1] = 0;
+		}
+	    }
 	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+1][c+2] = 0;}
+	    try{
+		if (board[r+1][c+2] < 0){
+		    board[r+1][c+2] = 0;
+		}
+	    }
 	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+1][c-2] = 0;}
+	    try{
+		if (board[r+1][c-2] < 0){
+		    board[r+1][c-2] = 0;
+		}
+	    }
 	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-1][c+2] = 0;}
+	    try{
+		if (board[r-1][c+2] < 0){
+		    board[r-1][c+2] = 0;
+		}
+	    }
 	    catch (ArrayIndexOutOfBoundsException e){}	   
-	    try{board[r-1][c-2] = 0;}
+	    try{
+		if (board[r-1][c-2] < 0){
+		    board[r-1][c-2] = 0;
+		}
+	    }
 	    catch (ArrayIndexOutOfBoundsException e){}
 	    return true;
 	}
@@ -145,13 +211,7 @@ public class KnightBoard{
     }
 
     public static void main (String[]args){
-	KnightBoard b = new KnightBoard(8, 8);
-	System.out.println(b.toString());
-	System.out.println(b.solve(0, 0));
-	b.addKnight(0,0,1);
-	System.out.println(b.toString());
-	b.removeKnight(0,0,1);
-	System.out.println(b.toString());
+	KnightBoard b = new KnightBoard(4, 5);
 	System.out.println(b.solve(0,0));
 	System.out.println(b.toString());
     }
