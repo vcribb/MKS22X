@@ -158,73 +158,57 @@ public class KnightBoard{
 	    col + 1 >= 0 && col + 1 < board[0].length &&
 	    board[row + 2][col + 1] == 0){
 	    board[row + 2][col + 1] = level;
-	    if (solveH(row + 2, col + 1, level + 1)){
-		numSolutions = countH(row + 2, col + 1, level + 1, numSolutions);
-		board[row + 2][col + 1] = 0;
-	    }
+	    numSolutions = countH(row + 2, col + 1, level + 1, numSolutions);
+	    board[row + 2][col + 1] = 0;
 	}
 	if (row + 2 >= 0 && row + 2 < board.length &&
 	    col - 1 >= 0 && col - 1 < board[0].length &&
 	    board[row + 2][col - 1] == 0){
 	    board[row + 2][col - 1] = level;
-	    if (solveH(row + 2, col - 1, level + 1)){
-		numSolutions = countH(row + 2, col - 1, level + 1, numSolutions);
-		board[row + 2][col - 1] = 0;
-	    }
+	    numSolutions = countH(row + 2, col - 1, level + 1, numSolutions);
+	    board[row + 2][col - 1] = 0;
 	}
 	if (row - 2 >= 0 && row - 2 < board.length &&
 	    col + 1 >= 0 && col + 1 < board[0].length &&
 	    board[row - 2][col + 1] == 0){
 	    board[row - 2][col + 1] = level;
-	    if (solveH(row - 2, col + 1, level + 1)){
-		numSolutions = countH(row - 2, col + 1, level + 1, numSolutions);
-		board[row - 2][col + 1] = 0;
-	    }
+	    numSolutions = countH(row - 2, col + 1, level + 1, numSolutions);
+	    board[row - 2][col + 1] = 0;
 	}
 	if (row - 2 >= 0 && row - 2 < board.length &&
 	    col - 1 >= 0 && col - 1 < board[0].length &&
 	    board[row - 2][col - 1] == 0){
 	    board[row - 2][col - 1] = level;
-	    if (solveH(row - 2, col - 1, level + 1)){
-		numSolutions = countH(row - 2, col - 1, level + 1, numSolutions);
-		board[row - 2][col - 1] = 0;
-	    }
+	    numSolutions = countH(row - 2, col - 1, level + 1, numSolutions);
+	    board[row - 2][col - 1] = 0;
 	}
 	if (row + 1 >= 0 && row + 1 < board.length &&
 	    col + 2 >= 0 && col + 2 < board[0].length &&
 	    board[row + 1][col + 2] == 0){
 	    board[row + 1][col + 2] = level;
-	    if (solveH(row + 1, col + 2, level + 1)){
-		numSolutions = countH(row + 1, col + 2, level + 1, numSolutions);
-		board[row + 1][col + 2] = 0;
-	    }
+	    numSolutions = countH(row + 1, col + 2, level + 1, numSolutions);
+	    board[row + 1][col + 2] = 0;
 	}
 	if (row + 1 >= 0 && row + 1 < board.length &&
 	    col - 2 >= 0 && col - 2 < board[0].length &&
 	    board[row + 1][col - 2] == 0){
 	    board[row + 1][col - 2] = level;
-	    if (solveH(row + 1, col - 2, level + 1)){
-		numSolutions = countH(row + 1, col - 2, level + 1, numSolutions);
-		board[row + 1][col - 2] = 0;
-	    }
+	    numSolutions = countH(row + 1, col - 2, level + 1, numSolutions);
+	    board[row + 1][col - 2] = 0;
 	}
 	if (row - 1 >= 0 && row - 1 < board.length &&
 	    col + 2 >= 0 && col + 2 < board[0].length &&
 	    board[row - 1][col + 2] == 0){
 	    board[row - 1][col + 2] = level;
-	    if (solveH(row - 1, col + 2, level + 1)){
-		numSolutions = countH(row - 1, col + 2, level + 1, numSolutions);
-		board[row - 1][col + 2] = 0;
-	    }
+	    numSolutions = countH(row - 1, col + 2, level + 1, numSolutions);
+	    board[row - 1][col + 2] = 0;
 	}
 	if (row - 1 >= 0 && row - 1 < board.length &&
 	    col - 2 >= 0 && col - 2 < board[0].length &&
 	    board[row - 1][col - 2] == 0){
 	    board[row - 1][col - 2] = level;
-	    if (solveH(row - 1, col - 2, level + 1)){
-		numSolutions = countH(row - 1, col - 2, level + 1, numSolutions);
-		board[row - 1][col - 2] = 0;
-	    }
+	    numSolutions = countH(row - 1, col - 2, level + 1, numSolutions);
+	    board[row - 1][col - 2] = 0;
 	}
 	return numSolutions;
     }
@@ -233,12 +217,13 @@ public class KnightBoard{
 	//testing the runtime
 	long startTime = System.nanoTime();
 	KnightBoard b = new KnightBoard(7, 7);
-	System.out.println(b.solve(1, 1));
+	System.out.println(b.solve(2, 2));
 	System.out.println(b.toString());
 	long stopTime = System.nanoTime();
 	System.out.println((stopTime - startTime)/1000000000.0);
-	KnightBoard c = new KnightBoard(3, 4);
-	System.out.println(c.countSolutions(0, 0));
+	KnightBoard c = new KnightBoard(4, 4);
+	System.out.println(c.countSolutions(0,0));
+	System.out.println(c.toString());
     }
     
 }
