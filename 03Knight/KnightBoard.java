@@ -210,6 +210,7 @@ public class KnightBoard{
 	    numSolutions = countH(row - 1, col - 2, level + 1, numSolutions);
 	    board[row - 1][col - 2] = 0;
 	}
+	board[row][col] = 0;
 	return numSolutions;
     }
 
@@ -221,9 +222,6 @@ public class KnightBoard{
 	System.out.println(b.toString());
 	long stopTime = System.nanoTime();
 	System.out.println((stopTime - startTime)/1000000000.0);
-	KnightBoard c = new KnightBoard(4, 4);
-	System.out.println(c.countSolutions(0,0));
-	System.out.println(c.toString());
     }
     
 }
