@@ -46,8 +46,7 @@ public class KnightBoard{
 		}
 	    }
 	}
-	board[startingRow][startingCol] = -1;
-	return solveH(startingRow, startingCol, 1);
+	return solveH(startingRow, startingCol, 2);
     }
 
     private boolean solveH(int row, int col, int level){
@@ -57,141 +56,80 @@ public class KnightBoard{
 	if (level > board.length * board[0].length){
 	    return true;
 	}
-	for (int r = 0; r < board.length; r++){
-	    for (int c = 0; c < board[0].length; c++){
-		if (board[r][c] < 0 && addKnight(r, c, level)){
-		    if (solveH(r+2, c+1, level+1)||
-			solveH(r+2, c-1, level+1)||
-			solveH(r-2, c+1, level+1)||
-			solveH(r-2, c-1, level+1)||
-			solveH(r+1, c+2, level+1)||
-			solveH(r+1, c-2, level+1)||
-			solveH(r-1, c+2, level+1)||
-			solveH(r-1, c-2, level+1)){
-			return true;
-		    }
-		}
-		removeKnight(r, c, level);
+	board[row][col] = level - 1;
+	if (row + 2 >= 0 && row + 2 < board.length &&
+	    col + 1 >= 0 && col + 1 < board[0].length &&
+	    board[row + 2][col + 1] == 0){
+	    board[row + 2][col + 1] = level;
+	    if (solveH(row + 2, col + 1, level + 1)){
+		return true;
 	    }
+	    board[row + 2][col + 1] = 0;
 	}
-	return false;
-    }
-
-    private boolean addKnight(int r, int c, int level){
-	if (r < 0 || c < 0 || r >= board.length || c >= board[0].length){
-	    return false;
+	if (row + 2 >= 0 && row + 2 < board.length &&
+	    col - 1 >= 0 && col - 1 < board[0].length &&
+	    board[row + 2][col - 1] == 0){
+	    board[row + 2][col - 1] = level;
+	    if (solveH(row + 2, col - 1, level + 1)){
+		return true;
+	    }
+	    board[row + 2][col - 1] = 0;
 	}
-	if (board[r][c] > -1){
-	    return false;
+	if (row - 2 >= 0 && row - 2 < board.length &&
+	    col + 1 >= 0 && col + 1 < board[0].length &&
+	    board[row - 2][col + 1] == 0){
+	    board[row - 2][col + 1] = level;
+	    if (solveH(row - 2, col + 1, level + 1)){
+		return true;
+	    }
+	    board[row - 2][col + 1] = 0;
 	}
-	board[r][c] = level;
-	try{
-	    if (board[r+2][c+1] == 0){
-		board[r+2][c+1] = -1;
+	if (row - 2 >= 0 && row - 2 < board.length &&
+	    col - 1 >= 0 && col - 1 < board[0].length &&
+	    board[row - 2][col - 1] == 0){
+	    board[row - 2][col - 1] = level;
+	    if (solveH(row - 2, col - 1, level + 1)){
+		return true;
 	    }
+	    board[row - 2][col - 1] = 0;
 	}
-	catch (ArrayIndexOutOfBoundsException e){}
-	try{
-	    if (board[r+2][c-1] == 0){
-		board[r+2][c-1] = -1;
+	if (row + 1 >= 0 && row + 1 < board.length &&
+	    col + 2 >= 0 && col + 2 < board[0].length &&
+	    board[row + 1][col + 2] == 0){
+	    board[row + 1][col + 2] = level;
+	    if (solveH(row + 1, col + 2, level + 1)){
+		return true;
 	    }
+	    board[row + 1][col + 2] = 0;
 	}
-	catch (ArrayIndexOutOfBoundsException e){}
-	try{
-	    if (board[r-2][c+1] == 0){
-		board[r-2][c+1] = -1;
+	if (row + 1 >= 0 && row + 1 < board.length &&
+	    col - 2 >= 0 && col - 2 < board[0].length &&
+	    board[row + 1][col - 2] == 0){
+	    board[row + 1][col - 2] = level;
+	    if (solveH(row + 1, col - 2, level + 1)){
+		return true;
 	    }
+	    board[row + 1][col - 2] = 0;
 	}
-	catch (ArrayIndexOutOfBoundsException e){}
-	try{
-	    if (board[r-2][c-1] == 0){
-		board[r-2][c-1] = -1;
+	if (row - 1 >= 0 && row - 1 < board.length &&
+	    col + 2 >= 0 && col + 2 < board[0].length &&
+	    board[row - 1][col + 2] == 0){
+	    board[row - 1][col + 2] = level;
+	    if (solveH(row - 1, col + 2, level + 1)){
+		return true;
 	    }
+	    board[row - 1][col + 2] = 0;
 	}
-	catch (ArrayIndexOutOfBoundsException e){}
-	try{
-	    if (board[r+1][c+2] == 0){
-		board[r+1][c+2] = -1;
+	if (row - 1 >= 0 && row - 1 < board.length &&
+	    col - 2 >= 0 && col - 2 < board[0].length &&
+	    board[row - 1][col - 2] == 0){
+	    board[row - 1][col - 2] = level;
+	    if (solveH(row - 1, col - 2, level + 1)){
+		return true;
 	    }
+	    board[row - 1][col - 2] = 0;
 	}
-	catch (ArrayIndexOutOfBoundsException e){}
-	try{
-	    if (board[r+1][c-2] == 0){
-		board[r+1][c-2] = -1;
-	    }
-	}
-	catch (ArrayIndexOutOfBoundsException e){}
-	try{
-	    if (board[r-1][c+2] == 0){
-		board[r-1][c+2] = -1;
-	    }
-	}
-	catch (ArrayIndexOutOfBoundsException e){}	   
-	try{
-	    if (board[r-1][c-2] == 0){
-		board[r-1][c-2] = -1;
-	    }
-	}
-	catch (ArrayIndexOutOfBoundsException e){}
-	return true;
-    }
-
-    private boolean removeKnight(int r, int c, int level){
-	if (r < 0 || c < 0 || r >= board.length || c >= board[0].length){
-	    return false;
-	}
-	if (board[r][c] == level){
-	    board[r][c] = 0;
-	    try{
-		if (board[r+2][c+1] < 0){
-			board[r+2][c+1] = 0;
-		}
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{
-		if (board[r+2][c-1] < 0){
-		    board[r+2][c-1] = 0;
-		}
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{
-		if (board[r-2][c+1] < 0){
-		    board[r-2][c+1] = 0;
-		}
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{
-		if (board[r-2][c-1] < 0){
-		    board[r-2][c-1] = 0;
-		}
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{
-		if (board[r+1][c+2] < 0){
-		    board[r+1][c+2] = 0;
-		}
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{
-		if (board[r+1][c-2] < 0){
-		    board[r+1][c-2] = 0;
-		}
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{
-		if (board[r-1][c+2] < 0){
-		    board[r-1][c+2] = 0;
-		}
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}	   
-	    try{
-		if (board[r-1][c-2] < 0){
-		    board[r-1][c-2] = 0;
-		}
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    return true;
-	}
+	board[row][col] = 0;
 	return false;
     }
 
@@ -211,8 +149,8 @@ public class KnightBoard{
     }
 
     public static void main (String[]args){
-	KnightBoard b = new KnightBoard(4, 5);
-	System.out.println(b.solve(0,0));
+	KnightBoard b = new KnightBoard(7, 7);
+	System.out.println(b.solve(1, 1));
 	System.out.println(b.toString());
     }
     
