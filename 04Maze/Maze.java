@@ -36,16 +36,12 @@ public class Maze{
         System.out.println("\033[2J\033[1;1H");
     }
 
-    /*Wrapper Solve Function returns the helper function
-      Note the helper function has the same name, but different parameters.
-      Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
-    */
     public int solve(){
 	for (int r = 0; r < maze.length; r++){
 	    for (int c = 0; c < maze[0].length; c++){
 		if (maze[r][c] == 'S'){
 		    maze[r][c] = ' ';
-		    return solve(r,c);
+		    return solve(r,c,0);
 		}
 	    }
 	}
@@ -64,13 +60,17 @@ public class Maze{
       Note: This is not required based on the algorithm, it is just nice visually to see.
       All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){
+    private int solve(int row, int col, int sum){
         if(animate){
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
         //COMPLETE SOLVE
+	/*
+	  check if the next square is blank
+	  if so, return solve(new row, new col, sum++)
+	 */
         return -1; //so it compiles
     }
 }
