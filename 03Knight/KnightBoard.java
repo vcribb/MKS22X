@@ -46,86 +46,90 @@ public class KnightBoard{
 		}
 	    }
 	}
-	board[startingRow][startingCol] = -1;
-	return solveH(startingRow, startingCol, 1);
+	return solveH(startingRow, startingCol, 2);
     }
 
     private boolean solveH(int row, int col, int level){
-	if (level >= board.length * board[0].length){
+	if (row >= board.length || col >= board[0].length || row < 0 || col < 0){
+	    return false;
+	}
+	if (level > board.length * board[0].length){
 	    return true;
 	}
-	for (int r = 0; r < board.length; r++){
-	    for (int c = 0; c < board[0].length; c++){
-		if (board[r][c] == -1 && addKnight(r, c, level)){
-		    if (solveH(r+2, c+1, level+1)||
-			solveH(r+2, c-1, level+1)||
-			solveH(r-2, c+1, level+1)||
-			solveH(r-2, c-1, level+1)||
-			solveH(r+1, c+2, level+1)||
-			solveH(r+1, c-2, level+1)||
-			solveH(r-1, c+2, level+1)||
-			solveH(r-1, c-2, level+1)
-			){
-			return true;
-		    }
-		}
-		removeKnight(r, c, level);
+	board[row][col] = level - 1;
+	if (row + 2 >= 0 && row + 2 < board.length &&
+	    col + 1 >= 0 && col + 1 < board[0].length &&
+	    board[row + 2][col + 1] == 0){
+	    board[row + 2][col + 1] = level;
+	    if (solveH(row + 2, col + 1, level + 1)){
+		return true;
 	    }
+	    board[row + 2][col + 1] = 0;
 	}
-	return false;
-    }
-
-    private boolean addKnight(int r, int c, int level){
-	if (r < 0 || c < 0 || r >= board.length || c >= board[0].length){
-	    return false;
+	if (row + 2 >= 0 && row + 2 < board.length &&
+	    col - 1 >= 0 && col - 1 < board[0].length &&
+	    board[row + 2][col - 1] == 0){
+	    board[row + 2][col - 1] = level;
+	    if (solveH(row + 2, col - 1, level + 1)){
+		return true;
+	    }
+	    board[row + 2][col - 1] = 0;
 	}
-	if (board[r][c] == -1){
-	    board[r][c] = level;
-	    try{board[r+2][c+1] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+2][c-1] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-2][c+1] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-2][c-1] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+1][c+2] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+1][c-2] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-1][c+2] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}	   
-	    try{board[r-1][c-2] = -1;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    return true;
+	if (row - 2 >= 0 && row - 2 < board.length &&
+	    col + 1 >= 0 && col + 1 < board[0].length &&
+	    board[row - 2][col + 1] == 0){
+	    board[row - 2][col + 1] = level;
+	    if (solveH(row - 2, col + 1, level + 1)){
+		return true;
+	    }
+	    board[row - 2][col + 1] = 0;
 	}
-	return false;
-    }
-
-    private boolean removeKnight(int r, int c, int level){
-	if (r < 0 || c < 0 || r >= board.length || c >= board[0].length){
-	    return false;
+	if (row - 2 >= 0 && row - 2 < board.length &&
+	    col - 1 >= 0 && col - 1 < board[0].length &&
+	    board[row - 2][col - 1] == 0){
+	    board[row - 2][col - 1] = level;
+	    if (solveH(row - 2, col - 1, level + 1)){
+		return true;
+	    }
+	    board[row - 2][col - 1] = 0;
 	}
-	if (board[r][c] == level){
-	    board[r][c] = 0;
-	    try{board[r+2][c+1] = 0;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+2][c-1] = 0;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-2][c+1] = 0;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-2][c-1] = 0;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+1][c+2] = 0;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r+1][c-2] = 0;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    try{board[r-1][c+2] = 0;}
-	    catch (ArrayIndexOutOfBoundsException e){}	   
-	    try{board[r-1][c-2] = 0;}
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    return true;
+	if (row + 1 >= 0 && row + 1 < board.length &&
+	    col + 2 >= 0 && col + 2 < board[0].length &&
+	    board[row + 1][col + 2] == 0){
+	    board[row + 1][col + 2] = level;
+	    if (solveH(row + 1, col + 2, level + 1)){
+		return true;
+	    }
+	    board[row + 1][col + 2] = 0;
 	}
+	if (row + 1 >= 0 && row + 1 < board.length &&
+	    col - 2 >= 0 && col - 2 < board[0].length &&
+	    board[row + 1][col - 2] == 0){
+	    board[row + 1][col - 2] = level;
+	    if (solveH(row + 1, col - 2, level + 1)){
+		return true;
+	    }
+	    board[row + 1][col - 2] = 0;
+	}
+	if (row - 1 >= 0 && row - 1 < board.length &&
+	    col + 2 >= 0 && col + 2 < board[0].length &&
+	    board[row - 1][col + 2] == 0){
+	    board[row - 1][col + 2] = level;
+	    if (solveH(row - 1, col + 2, level + 1)){
+		return true;
+	    }
+	    board[row - 1][col + 2] = 0;
+	}
+	if (row - 1 >= 0 && row - 1 < board.length &&
+	    col - 2 >= 0 && col - 2 < board[0].length &&
+	    board[row - 1][col - 2] == 0){
+	    board[row - 1][col - 2] = level;
+	    if (solveH(row - 1, col - 2, level + 1)){
+		return true;
+	    }
+	    board[row - 1][col - 2] = 0;
+	}
+	board[row][col] = 0;
 	return false;
     }
 
@@ -141,19 +145,83 @@ public class KnightBoard{
 		}
 	    }
 	}
-	return 0;
+	return countH(startingRow, startingCol, 2, 0);
+    }
+
+    public int countH(int row, int col, int level, int numSolutions){
+	if (level > board.length * board[0].length){
+	    numSolutions++;
+	    return numSolutions;
+	}
+	board[row][col] = level - 1;
+	if (row + 2 >= 0 && row + 2 < board.length &&
+	    col + 1 >= 0 && col + 1 < board[0].length &&
+	    board[row + 2][col + 1] == 0){
+	    board[row + 2][col + 1] = level;
+	    numSolutions = countH(row + 2, col + 1, level + 1, numSolutions);
+	    board[row + 2][col + 1] = 0;
+	}
+	if (row + 2 >= 0 && row + 2 < board.length &&
+	    col - 1 >= 0 && col - 1 < board[0].length &&
+	    board[row + 2][col - 1] == 0){
+	    board[row + 2][col - 1] = level;
+	    numSolutions = countH(row + 2, col - 1, level + 1, numSolutions);
+	    board[row + 2][col - 1] = 0;
+	}
+	if (row - 2 >= 0 && row - 2 < board.length &&
+	    col + 1 >= 0 && col + 1 < board[0].length &&
+	    board[row - 2][col + 1] == 0){
+	    board[row - 2][col + 1] = level;
+	    numSolutions = countH(row - 2, col + 1, level + 1, numSolutions);
+	    board[row - 2][col + 1] = 0;
+	}
+	if (row - 2 >= 0 && row - 2 < board.length &&
+	    col - 1 >= 0 && col - 1 < board[0].length &&
+	    board[row - 2][col - 1] == 0){
+	    board[row - 2][col - 1] = level;
+	    numSolutions = countH(row - 2, col - 1, level + 1, numSolutions);
+	    board[row - 2][col - 1] = 0;
+	}
+	if (row + 1 >= 0 && row + 1 < board.length &&
+	    col + 2 >= 0 && col + 2 < board[0].length &&
+	    board[row + 1][col + 2] == 0){
+	    board[row + 1][col + 2] = level;
+	    numSolutions = countH(row + 1, col + 2, level + 1, numSolutions);
+	    board[row + 1][col + 2] = 0;
+	}
+	if (row + 1 >= 0 && row + 1 < board.length &&
+	    col - 2 >= 0 && col - 2 < board[0].length &&
+	    board[row + 1][col - 2] == 0){
+	    board[row + 1][col - 2] = level;
+	    numSolutions = countH(row + 1, col - 2, level + 1, numSolutions);
+	    board[row + 1][col - 2] = 0;
+	}
+	if (row - 1 >= 0 && row - 1 < board.length &&
+	    col + 2 >= 0 && col + 2 < board[0].length &&
+	    board[row - 1][col + 2] == 0){
+	    board[row - 1][col + 2] = level;
+	    numSolutions = countH(row - 1, col + 2, level + 1, numSolutions);
+	    board[row - 1][col + 2] = 0;
+	}
+	if (row - 1 >= 0 && row - 1 < board.length &&
+	    col - 2 >= 0 && col - 2 < board[0].length &&
+	    board[row - 1][col - 2] == 0){
+	    board[row - 1][col - 2] = level;
+	    numSolutions = countH(row - 1, col - 2, level + 1, numSolutions);
+	    board[row - 1][col - 2] = 0;
+	}
+	board[row][col] = 0;
+	return numSolutions;
     }
 
     public static void main (String[]args){
-	KnightBoard b = new KnightBoard(8, 8);
+	//testing the runtime
+	long startTime = System.nanoTime();
+	KnightBoard b = new KnightBoard(7, 7);
+	System.out.println(b.solve(2, 2));
 	System.out.println(b.toString());
-	System.out.println(b.solve(0, 0));
-	b.addKnight(0,0,1);
-	System.out.println(b.toString());
-	b.removeKnight(0,0,1);
-	System.out.println(b.toString());
-	System.out.println(b.solve(0,0));
-	System.out.println(b.toString());
+	long stopTime = System.nanoTime();
+	System.out.println((stopTime - startTime)/1000000000.0);
     }
     
 }
