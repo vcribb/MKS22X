@@ -132,6 +132,8 @@ public class QueenBoard{
 	for (int x = 0; x < 11; x++){
 	    QueenBoard b = new QueenBoard(x);
 	    System.out.println(x+": "+b.countSolutions());
+	    System.out.println(b.solve());
+	    System.out.println(b.toString());
 	}
     }
 }
