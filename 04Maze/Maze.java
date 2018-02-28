@@ -16,8 +16,8 @@ public class Maze{
       throw a FileNotFoundException or IllegalStateException
     */
 
-    public Maze(String filename){
-        //COMPLETE CONSTRUCTOR
+    public Maze(String filename) throws FileNotFoundException{
+	
     }
     
     private void wait(int millis){
@@ -48,29 +48,29 @@ public class Maze{
 	return 0;
     }
 
-    /*
-      Recursive Solve function:
-      A solved maze has a path marked with '@' from S to E.
-      Returns the number of @ symbols from S to E when the maze is solved,
-      Returns -1 when the maze has no solution.
-
-      Postcondition:
-      The S is replaced with '@' but the 'E' is not.
-      All visited spots that were not part of the solution are changed to '.'
-      Note: This is not required based on the algorithm, it is just nice visually to see.
-      All visited spots that are part of the solution are changed to '@'
-    */
     private int solve(int row, int col, int sum){
         if(animate){
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
-        //COMPLETE SOLVE
-	/*
-	  check if the next square is blank
-	  if so, return solve(new row, new col, sum++)
-	 */
-        return -1; //so it compiles
+	if (maze[row][col] == 'E'){
+	    return sum;
+	}
+        maze[row][col] = '@';
+	if (maze[row][col + 1] == ' '){
+	    return solve(row, col + 1, sum++);
+	}
+	if (maze[row][col - 1] == ' '){
+	    return solve(row, col - 1, sum++);
+	}
+	if (maze[row + 1][col] == ' '){
+	    return solve(row + 1, col, sum++);
+	}
+	if (maze[row - 1][col] == ' '){
+	    return solve(row - 1, col, sum++);
+	}
+	maze[row][col] = ' ';
+        return -1;
     }
 }
