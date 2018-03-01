@@ -1,9 +1,10 @@
 import java.util.*;
 import java.io.*;
+
 public class Maze{
 
     private char[][]maze;
-    private boolean animate;//false by default
+    private boolean animate;
 
     /*Constructor loads a maze text file, and sets animate to false by default.
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -17,7 +18,18 @@ public class Maze{
     */
 
     public Maze(String filename) throws FileNotFoundException{
-	
+        File text = new File(filename);
+        Scanner inf = new Scanner(text);
+	int r = 0;
+        while(inf.hasNextLine()){
+            String line = inf.nextLine();
+            /*for (int c = 0; c < line.length(); c++){
+		maze[r][c] = line.charAt(c);
+	    }
+	    r++;*/
+	    System.out.println(line);
+	}
+	animate = false;
     }
     
     private void wait(int millis){
@@ -72,5 +84,14 @@ public class Maze{
 	}
 	maze[row][col] = ' ';
         return -1;
+    }
+
+    public static void main (String[]args){
+	try{
+	    Maze a = new Maze("maze.txt");
+	    System.out.println(a);
+	}
+	catch (FileNotFoundException e){
+	}
     }
 }
