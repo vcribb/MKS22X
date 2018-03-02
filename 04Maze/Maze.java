@@ -6,28 +6,40 @@ public class Maze{
     private char[][]maze;
     private boolean animate;
 
-    /*Constructor loads a maze text file, and sets animate to false by default.
-      1. The file contains a rectangular ascii maze, made with the following 4 characters:
-      '#' - Walls - locations that cannot be moved onto
-      ' ' - Empty Space - locations that can be moved onto
-      'E' - the location of the goal (exactly 1 per file)
-      'S' - the location of the start(exactly 1 per file)
-      2. The maze has a border of '#' around the edges. So you don't have to check for out of bounds!
-      3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: 
-      throw a FileNotFoundException or IllegalStateException
-    */
-
     public Maze(String filename) throws FileNotFoundException{
         File text = new File(filename);
         Scanner inf = new Scanner(text);
-	int r = 0;
+	int numrows = 0;
+	String l = "";
         while(inf.hasNextLine()){
-            String line = inf.nextLine();
-            /*for (int c = 0; c < line.length(); c++){
-		maze[r][c] = line.charAt(c);
+	    l += inf.nextLine();
+	    numrows++;
+	}
+	maze = new char[numrows][l.length()/numrows];
+	int r = 0;
+	int c = 0;
+        for (int index = 0; index < l.length(); index++){
+	    if (c == (l.length()/numrows)){
+		r++;
+		c = 0;
 	    }
-	    r++;*/
-	    System.out.println(line);
+	    maze[r][c] = l.charAt(index);
+	    c++;
+	}
+	int scounter = 0;
+	int ecounter = 0;
+	for (int row = 0; row < r; row++){
+	    for (int col = 0; col < c; col++){
+		if (maze[row][col] == 'S'){
+		    scounter++;
+		}
+		if (maze[row][col] == 'E'){
+		    ecounter++;
+		}
+	    }
+	}
+	if (scounter != 1 || ecounter != 1){
+	    throw new IllegalStateException("The maze is invalid");
 	}
 	animate = false;
     }
@@ -63,23 +75,29 @@ public class Maze{
     private int solve(int row, int col, int sum){
         if(animate){
             clearTerminal();
-            System.out.println(this);
-            wait(20);
+	    for (int r = 0; r < this.maze.length; r++){
+		System.out.println(Arrays.toString(this.maze[r]));
+	    }
+            wait(40);
         }
 	if (maze[row][col] == 'E'){
 	    return sum;
 	}
-        maze[row][col] = '@';
-	if (maze[row][col + 1] == ' '){
+	maze[row][col] = '@';
+	if ((col + 1) < maze[0].length && maze[row][col + 1] == ' '){
+	    //maze[row][col + 1] = '@';
 	    return solve(row, col + 1, sum++);
 	}
-	if (maze[row][col - 1] == ' '){
+	if ((col - 1) > -1 && maze[row][col - 1] == ' '){
+	    //maze[row][col - 1] = '@';
 	    return solve(row, col - 1, sum++);
 	}
-	if (maze[row + 1][col] == ' '){
+	if ((row + 1) < maze.length && maze[row + 1][col] == ' '){
+	    // maze[row + 1][col] = '@';
 	    return solve(row + 1, col, sum++);
 	}
-	if (maze[row - 1][col] == ' '){
+	if ((row - 1) > -1 && maze[row - 1][col] == ' '){
+	    //maze[row - 1][col] = '@';
 	    return solve(row - 1, col, sum++);
 	}
 	maze[row][col] = ' ';
@@ -89,7 +107,11 @@ public class Maze{
     public static void main (String[]args){
 	try{
 	    Maze a = new Maze("maze.txt");
-	    System.out.println(a);
+	    for (int r = 0; r < a.maze.length; r++){
+		System.out.println(Arrays.toString(a.maze[r]));
+	    }
+	    a.setAnimate(true);
+	    a.solve();
 	}
 	catch (FileNotFoundException e){
 	}
