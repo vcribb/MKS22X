@@ -84,6 +84,15 @@ public class Maze{
 	    ((col - 1) > -1 && maze[row][col - 1] == 'E') ||
 	    ((row + 1) < maze.length && maze[row + 1][col] == 'E') ||
 	    ((row - 1) > -1 && maze[row - 1][col] == 'E')){
+	    int s = 0;
+	    for (int r = 0; r < maze.length; r++){
+		for (int c = 0; c < maze[0].length; c++){
+		    if (maze[r][c] == '@'){
+			s++;
+		    }
+		}
+	    }
+	    System.out.println(s);
 	    System.exit(1);
 	}
 	maze[row][col] = '@';
@@ -116,7 +125,7 @@ public class Maze{
 	    maze[row - 1][col] = ' ';
 	}
 	maze[row][col] = ' ';
-        return -1;
+	return -1;
     }
 
     public static void main (String[]args){
@@ -127,7 +136,7 @@ public class Maze{
 	    }
 	    a.setAnimate(true);
 	    a.solve();
-	    
+	    System.out.println(a.solve());
 	}
 	catch (FileNotFoundException e){
 	}
