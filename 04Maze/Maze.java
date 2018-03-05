@@ -84,7 +84,7 @@ public class Maze{
 	    ((col - 1) > -1 && maze[row][col - 1] == 'E') ||
 	    ((row + 1) < maze.length && maze[row + 1][col] == 'E') ||
 	    ((row - 1) > -1 && maze[row - 1][col] == 'E')){
-	    return sum;
+	    System.exit(1);
 	}
 	maze[row][col] = '@';
 	if ((col + 1) < maze[0].length && maze[row][col + 1] == ' '){
@@ -127,6 +127,7 @@ public class Maze{
 	    }
 	    a.setAnimate(true);
 	    a.solve();
+	    
 	}
 	catch (FileNotFoundException e){
 	}
