@@ -78,27 +78,42 @@ public class Maze{
 	    for (int r = 0; r < this.maze.length; r++){
 		System.out.println(Arrays.toString(this.maze[r]));
 	    }
-            wait(40);
+            wait(80);
         }
-	if (maze[row][col] == 'E'){
+	if (((col + 1) < maze[0].length && maze[row][col + 1] == 'E') ||
+	    ((col - 1) > -1 && maze[row][col - 1] == 'E') ||
+	    ((row + 1) < maze.length && maze[row + 1][col] == 'E') ||
+	    ((row - 1) > -1 && maze[row - 1][col] == 'E')){
 	    return sum;
 	}
 	maze[row][col] = '@';
 	if ((col + 1) < maze[0].length && maze[row][col + 1] == ' '){
-	    //maze[row][col + 1] = '@';
-	    return solve(row, col + 1, sum++);
+	    maze[row][col + 1] = '@';
+	    if (solve(row, col + 1, sum++) != -1){
+		return solve(row, col + 1, sum++);
+	    }
+	    maze[row][col + 1] = ' ';
 	}
 	if ((col - 1) > -1 && maze[row][col - 1] == ' '){
-	    //maze[row][col - 1] = '@';
-	    return solve(row, col - 1, sum++);
+	    maze[row][col - 1] = '@';
+	    if (solve(row, col - 1, sum++) != -1){
+		return solve(row, col - 1, sum++);
+	    }
+	    maze[row][col - 1] = ' ';
 	}
 	if ((row + 1) < maze.length && maze[row + 1][col] == ' '){
-	    // maze[row + 1][col] = '@';
-	    return solve(row + 1, col, sum++);
+	    maze[row + 1][col] = '@';
+	    if (solve(row + 1, col, sum++) != -1){
+		return solve(row + 1, col, sum++);
+	    }
+	    maze[row + 1][col] = ' ';
 	}
 	if ((row - 1) > -1 && maze[row - 1][col] == ' '){
-	    //maze[row - 1][col] = '@';
-	    return solve(row - 1, col, sum++);
+	    maze[row - 1][col] = '@';
+	    if (solve(row - 1, col, sum++) != -1){
+		return solve(row - 1, col, sum++);
+	    }
+	    maze[row - 1][col] = ' ';
 	}
 	maze[row][col] = ' ';
         return -1;
