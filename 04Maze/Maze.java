@@ -69,7 +69,7 @@ public class Maze{
 		}
 	    }
 	}
-	return 0;
+	return -1;
     }
 
     private int solve(int row, int col, int sum){
