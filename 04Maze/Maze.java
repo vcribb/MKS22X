@@ -78,7 +78,7 @@ public class Maze{
 	    for (int r = 0; r < this.maze.length; r++){
 		System.out.println(Arrays.toString(this.maze[r]));
 	    }
-            wait(80);
+            wait(20);
         }
 	if (((col + 1) < maze[0].length && maze[row][col + 1] == 'E') ||
 	    ((col - 1) > -1 && maze[row][col - 1] == 'E') ||
