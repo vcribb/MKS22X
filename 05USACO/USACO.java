@@ -68,20 +68,64 @@ public class USACO{
 	return 0;
     }
 
+    public static String toString(int[][] arr){
+	String array = "";
+	for (int r = 0; r < arr.length; r++){
+	    for (int c = 0; c < arr[0].length; c++){
+		array += arr[r][c] + " ";
+	    }
+	    array += "\n";
+	}
+	return array;
+    }
+
     public static int silver(String filename){
 	try{
+	    //extracts basic info from the file
 	    File text = new File(filename);
 	    Scanner inf = new Scanner(text);
-	    String l = "";
-	    while(inf.hasNextLine()){
-		l += inf.nextLine();
+	    int N = inf.nextInt();
+	    int M = inf.nextInt();
+	    int T = inf.nextInt();
+	    inf.nextLine();
+
+	    //initializes pasture array
+	    char[][] pasture = new char[N][M];
+	    for (int row = 0; row < N; row++){
+		String l = inf.nextLine();
+		for (int col = 0; col < M; col++){
+		    pasture[row][col] = l.charAt(col);
+		}
 	    }
-	    //make the char[][] array
-	    //initialize int[][]s
+
+	    //more extraction
+	    int R1 = inf.nextInt() - 1;
+	    int C1 = inf.nextInt() - 1;
+	    int R2 = inf.nextInt() - 1;
+	    int C2 = inf.nextInt() - 1;
+
+	    //create the two arrays
+	    int[][] one = new int[N][M];
+	    int[][] two = new int[N][M];
+	    
 	}
+	
 	catch (FileNotFoundException e){
+	    System.exit(1);
 	}
+	
 	return 0;
+    }
+
+    public static String toString(char[][] arr){
+	String array = "";
+	for (int r = 0; r < arr.length; r++){
+	    for (int c = 0; c < arr[0].length; c++){
+		array += arr[r][c] + " ";
+	    }
+	    array += "\n";
+	}
+	return array;
     }
 
     public static void main(String[] args) throws FileNotFoundException{
