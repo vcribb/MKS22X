@@ -12,6 +12,11 @@ public class USACO{
 	    int E = inf.nextInt();
 	    int N = inf.nextInt();
 	    int[][] pasture = new int[R][C];
+	    for (int rindex = 0; rindex < R; rindex++){
+		for (int cindex = 0; cindex < C; cindex++){
+		    pasture[rindex][cindex] = inf.nextInt();
+		}
+	    }
 	}
 	catch (FileNotFoundException e){
 	}
