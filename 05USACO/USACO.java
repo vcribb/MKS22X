@@ -104,10 +104,34 @@ public class USACO{
 	    int R2 = inf.nextInt() - 1;
 	    int C2 = inf.nextInt() - 1;
 
-	    //create the two arrays
+	    //create and initialize the two integer arrays
 	    int[][] one = new int[N][M];
 	    int[][] two = new int[N][M];
-	    
+	    for (int row = 0; row < N; row++){
+		for (int col = 0; col < M; col++){
+		    if (pasture[row][col] == '*'){
+			one[row][col] = -1;
+			two[row][col] = -1;
+		    }
+		    else{
+			one[row][col] = 0;
+			two[row][col] = 0;
+		    }
+		}
+	    }
+
+	    //establish the starting point
+	    one[R1][C1] = 1;
+	    two[R1][C1] = 1;
+
+	    for (int moves = 0; moves < T; moves++){
+		//manipulate arrays
+	    }
+
+	    if (T % 2 == 0){
+		return one[R2][C2];
+	    }
+	    return two[R2][C2];
 	}
 	
 	catch (FileNotFoundException e){
