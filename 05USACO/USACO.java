@@ -125,7 +125,59 @@ public class USACO{
 	    two[R1][C1] = 1;
 
 	    for (int moves = 0; moves < T; moves++){
-		//manipulate arrays
+		if (moves % 2 == 1){
+		    //manipulate one
+		    for (int row = 0; row < N; row++){
+			for (int col = 0; col < M; col++){
+			    if (two[row][col] > 0){
+				one[row][col] = 0;
+			    }
+			    if (two[row][col] == 0){
+				int sum = 0;
+				if (row + 1 < N && two[row + 1][col] > -1){
+				    sum += two[row + 1][col];
+				}
+				if (row - 1 > -1 && two[row - 1][col] > -1){
+				    sum += two[row - 1][col];
+				}
+				if (col + 1 < M && two[row][col + 1] > -1){
+				    sum += two[row][col + 1];
+				}
+				if (col - 1 > -1 && two[row][col - 1] > -1){
+				    sum += two[row][col - 1];
+				}
+				one[row][col] = sum;
+			    }
+			}
+		    }
+		}
+		
+		else{
+		    //manipulate two
+		    for (int row = 0; row < N; row++){
+			for (int col = 0; col < M; col++){
+			    if (one[row][col] > 0){
+				two[row][col] = 0;
+			    }
+			    if (one[row][col] == 0){
+				int sum = 0;
+				if (row + 1 < N && one[row + 1][col] > -1){
+				    sum += one[row + 1][col];
+				}
+				if (row - 1 > -1 && one[row - 1][col] > -1){
+				    sum += one[row - 1][col];
+				}
+				if (col + 1 < M && one[row][col + 1] > -1){
+				    sum += one[row][col + 1];
+				}
+				if (col - 1 > -1 && one[row][col - 1] > -1){
+				    sum += one[row][col - 1];
+				}
+				two[row][col] = sum;
+			    }
+			}
+		    }
+		}
 	    }
 
 	    if (T % 2 == 0){
@@ -154,5 +206,6 @@ public class USACO{
 
     public static void main(String[] args) throws FileNotFoundException{
 	System.out.println(bronze("lake.txt"));
+	System.out.println(silver("pasture.txt"));
     }
 }
