@@ -3,8 +3,18 @@ import java.util.*;
 public class Quick{
 
     public static void quicksort(int[] ary){
+	sorthelp(ary, 0, ary.length - 1);
     }
 
+    public static void sorthelp(int[] ary, int start, int end){
+	if (start >= end){
+	    return;
+	}
+	int n = partition(ary, start, end);
+	sorthelp(ary, start, n - 1);
+	sorthelp(ary, n + 1, end);
+    }
+    
     public static int quickselect(int[] ary, int k){
         return selecthelp(ary, k, 0, ary.length - 1);
     }
@@ -35,7 +45,8 @@ public class Quick{
 	    else{
 		swap(data, i, j);
 		j--;
-	    }	}
+	    }
+	}
 	swap(data, j, start);
 	return j;
     }
@@ -52,11 +63,14 @@ public class Quick{
     }
 
     public static void main(String[]args){
-	int[] arr = {9, 14, 9, 2, 3, 4, 5, 4, 9, 1, 0};
+	int[] arr = {7989, 14, 98, 2, 23, 4, 234, 456, 4};
 	System.out.println(Arrays.toString(arr));
 	for (int x = 1; x <= arr.length; x++){
 	    System.out.println(quickselect(arr, x));
 	}
+	int[] ary = {7989, 14, 98, 2, 23, 4, 234, 456, 4};
+	quicksort(ary);
+	System.out.println(Arrays.toString(ary));
     }
 
 }
