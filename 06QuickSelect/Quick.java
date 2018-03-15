@@ -10,7 +10,6 @@ public class Quick{
     }
 
     public static int selecthelp(int[] ary, int k, int start, int end){
-	//System.out.println(Arrays.toString(ary));
 	int n = partition(ary, start, end);
 	if (n == k - 1){
 	    return ary[n];
@@ -36,11 +35,7 @@ public class Quick{
 	    else{
 		swap(data, i, j);
 		j--;
-	    }
-	    //System.out.println(Arrays.toString(data));
-	}
-	//System.out.println(j);
-	//System.out.println(start);
+	    }	}
 	swap(data, j, start);
 	return j;
     }
