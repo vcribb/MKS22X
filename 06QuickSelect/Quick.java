@@ -10,12 +10,12 @@ public class Quick{
     }
 
     public static int selecthelp(int[] ary, int k, int start, int end){
-	System.out.println(Arrays.toString(ary));
+	//System.out.println(Arrays.toString(ary));
 	int n = partition(ary, start, end);
 	if (n == k - 1){
 	    return ary[n];
 	}
-	if (n < k - 1){
+	if (n > k - 1){
 	    return selecthelp(ary, k, start, n - 1);
 	}
 	return selecthelp(ary, k, n + 1, end);
@@ -37,8 +37,10 @@ public class Quick{
 		swap(data, i, j);
 		j--;
 	    }
-	    System.out.println(Arrays.toString(data));
+	    //System.out.println(Arrays.toString(data));
 	}
+	//System.out.println(j);
+	//System.out.println(start);
 	swap(data, j, start);
 	return j;
     }
@@ -57,10 +59,9 @@ public class Quick{
     public static void main(String[]args){
 	int[] arr = {9, 14, 9, 2, 3, 4, 5, 4, 9, 1, 0};
 	System.out.println(Arrays.toString(arr));
-	//for (int x = 0; x < arr.length; x++){
-	System.out.println(partition(arr, 0, arr.length - 1));
-	System.out.println(quickselect(arr, 4));
-	    //}
+	for (int x = 1; x <= arr.length; x++){
+	    System.out.println(quickselect(arr, x));
+	}
     }
 
 }
