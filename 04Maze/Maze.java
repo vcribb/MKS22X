@@ -61,81 +61,80 @@ public class Maze{
     }
 
     public int solve(){
-	for (int r = 0; r < maze.length; r++){
-	    for (int c = 0; c < maze[0].length; c++){
-		if (maze[r][c] == 'S'){
-		    maze[r][c] = ' ';
-		    return solve(r,c,0);
+	int r = 0;
+	int c = 0;
+	for (int row = 0; row < maze.length; row++){
+	    for (int col = 0; col < maze[0].length; col++){
+		if (maze[row][col] == 'S'){
+		    maze[row][col] = ' ';
+		    r = row;
+		    c = col;
 		}
 	    }
 	}
-	return -1;
+	return solve(r, c, 0);
     }
 
     private int solve(int row, int col, int sum){
         if(animate){
             clearTerminal();
-	    for (int r = 0; r < this.maze.length; r++){
-		System.out.println(Arrays.toString(this.maze[r]));
-	    }
+	    System.out.println(this);
             wait(20);
         }
-	if (((col + 1) < maze[0].length && maze[row][col + 1] == 'E') ||
-	    ((col - 1) > -1 && maze[row][col - 1] == 'E') ||
-	    ((row + 1) < maze.length && maze[row + 1][col] == 'E') ||
-	    ((row - 1) > -1 && maze[row - 1][col] == 'E')){
-	    int s = 0;
-	    for (int r = 0; r < maze.length; r++){
-		for (int c = 0; c < maze[0].length; c++){
-		    if (maze[r][c] == '@'){
-			s++;
-		    }
-		}
-	    }
-	    System.out.println(s);
-	    System.exit(1);
+	if (maze[row][col] == 'E'){
+	    return sum;
 	}
-	maze[row][col] = '@';
-	if ((col + 1) < maze[0].length && maze[row][col + 1] == ' '){
-	    maze[row][col + 1] = '@';
-	    if (solve(row, col + 1, sum++) != -1){
-		return solve(row, col + 1, sum++);
+	if (maze[row][col + 1] == ' ' || maze[row][col + 1] == 'E'){
+	    maze[row][col] = '@';
+	    int temp = solve(row, col + 1, sum + 1);
+	    if (temp != -1){
+		return temp;
 	    }
-	    maze[row][col + 1] = ' ';
+	    maze[row][col] = '.';
 	}
-	if ((col - 1) > -1 && maze[row][col - 1] == ' '){
-	    maze[row][col - 1] = '@';
-	    if (solve(row, col - 1, sum++) != -1){
-		return solve(row, col - 1, sum++);
+	if (maze[row][col - 1] == ' ' || maze[row][col - 1] == 'E'){
+	    maze[row][col] = '@';
+	    int temp = solve(row, col - 1, sum + 1);
+	    if (temp != -1){
+		return temp;
 	    }
-	    maze[row][col - 1] = ' ';
+	    maze[row][col] = '.';
 	}
-	if ((row + 1) < maze.length && maze[row + 1][col] == ' '){
-	    maze[row + 1][col] = '@';
-	    if (solve(row + 1, col, sum++) != -1){
-		return solve(row + 1, col, sum++);
+	if (maze[row + 1][col] == ' ' || maze[row + 1][col] == 'E'){
+	    maze[row][col] = '@';
+	    int temp = solve(row + 1, col, sum + 1);
+	    if (temp != -1){
+		return temp;
 	    }
-	    maze[row + 1][col] = ' ';
+	    maze[row][col] = '.';
 	}
-	if ((row - 1) > -1 && maze[row - 1][col] == ' '){
-	    maze[row - 1][col] = '@';
-	    if (solve(row - 1, col, sum++) != -1){
-		return solve(row - 1, col, sum++);
+	if (maze[row - 1][col] == ' ' || maze[row - 1][col] == 'E'){
+	    maze[row][col] = '@';
+	    int temp = solve(row - 1, col, sum + 1);
+	    if (temp != -1){
+		return temp;
 	    }
-	    maze[row - 1][col] = ' ';
+	    maze[row][col] = '.';
 	}
-	maze[row][col] = ' ';
 	return -1;
+    }
+
+    public String toString() {
+	String s = "";
+	for (int x = 0; x < maze.length; x++) {
+	    for (int y = 0; y < maze[x].length; y++) {
+		s = s + maze[x][y];
+	    }
+	    s = s + "\n";
+	}
+	return s;
     }
 
     public static void main (String[]args){
 	try{
 	    Maze a = new Maze("maze.txt");
-	    for (int r = 0; r < a.maze.length; r++){
-		System.out.println(Arrays.toString(a.maze[r]));
-	    }
+	    System.out.println(a);
 	    a.setAnimate(true);
-	    a.solve();
 	    System.out.println(a.solve());
 	}
 	catch (FileNotFoundException e){
