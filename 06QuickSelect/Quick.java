@@ -10,9 +10,9 @@ public class Quick{
 	if (start >= end){
 	    return;
 	}
-	int n = partition(ary, start, end);
-	sorthelp(ary, start, n - 1);
-	sorthelp(ary, n + 1, end);
+	int[] n = partition(ary, start, end);
+	sorthelp(ary, start, n[0] - 1);
+	sorthelp(ary, n[1] + 1, end);
     }
     
     public static int quickselect(int[] ary, int k){
@@ -20,35 +20,40 @@ public class Quick{
     }
 
     public static int selecthelp(int[] ary, int k, int start, int end){
-	int n = partition(ary, start, end);
-	if (n == k - 1){
-	    return ary[n];
+	int[] n = partition(ary, start, end);
+	if (n[0] <= k - 1 && n[1] >= k - 1){
+	    return ary[n[0]];
 	}
-	if (n > k - 1){
-	    return selecthelp(ary, k, start, n - 1);
+	if (n[0] > k - 1){
+	    return selecthelp(ary, k, start, n[0] - 1);
 	}
-	return selecthelp(ary, k, n + 1, end);
+	return selecthelp(ary, k, n[1] + 1, end);
     }
 
-    public static int partition(int[] data, int start, int end){
-	if (start == end){
-	    return start;
-	}
+    public static int[] partition(int[] data, int start, int end){
 	int pivot = randGen(start, end);
-        swap(data, start, pivot);
+	//System.out.println(pivot);
+	swap(data, start, pivot);
+	int lt = start;
 	int i = start + 1;
-	int j = end;
-	while (i <= j){
-	    if (data[i] < data[start]){
+	int gt = end;
+	while (i <= gt){
+	    if (data[i] == data[lt]){
 		i++;
 	    }
-	    else{
-		swap(data, i, j);
-		j--;
+	    if (data[i] > data[lt]){
+		swap(data, i, gt);
+		gt--;
 	    }
+	    else{
+		swap(data, i, lt);
+		lt++;
+		i++;
+	    }
+	    //System.out.println(Arrays.toString(data));
 	}
-	swap(data, j, start);
-	return j;
+	int[] ans = {lt, gt};
+	return ans;
     }
 
     public static int randGen(int min, int max){
@@ -64,11 +69,12 @@ public class Quick{
 
     public static void main(String[]args){
 	int[] arr = {7989, 14, 98, 2, 23, 4, 234, 456, 4};
+	//System.out.println(Arrays.toString(partition(arr, 0, arr.length - 1)));
 	System.out.println(Arrays.toString(arr));
 	for (int x = 1; x <= arr.length; x++){
 	    System.out.println(quickselect(arr, x));
 	}
-	int[] ary = {7989, 14, 98, 2, 23, 4, 234, 456, 4};
+	int[] ary = {0, 1, 2, 3, 2, 1, 2, 2, 2, 4, 1, 0, 4, 2};
 	quicksort(ary);
 	System.out.println(Arrays.toString(ary));
     }
