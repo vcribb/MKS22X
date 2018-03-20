@@ -10,7 +10,7 @@ public class Merge{
 
     private static void msort(int[]data, int[]temp, int start, int end){
 	if (start >= end){
-	    return; //has finished dividing data
+	    return; //has gone through data
 	}
 	for (int x = start; x <= end; x++){
 	    temp[x] = data[x];
@@ -24,7 +24,7 @@ public class Merge{
     private static void merge(int[]data, int[]temp, int start, int mid, int end){
 	
 	/*
-	  ---
+	  takes data[start] through data[mid] and data[mid + 1] through data[end]
 	 */
 	
     }
