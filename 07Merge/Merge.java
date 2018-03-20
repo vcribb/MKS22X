@@ -10,21 +10,28 @@ public class Merge{
 
     private static void msort(int[]data, int[]temp, int start, int end){
 	if (start >= end){
-	    return; //has finished dividing data
+	    return;
 	}
+	
+	//copy data into temp
 	for (int x = start; x <= end; x++){
 	    temp[x] = data[x];
 	}
+	
 	int mid = (start + end) / 2;
+
+	//break down the array into halves and sort
 	msort(temp, data, start, mid);
 	msort(temp, data, mid + 1, end);
+	
+	//merge the two sorted halves
 	merge(data, temp, start, mid, end);
     }
 
     private static void merge(int[]data, int[]temp, int start, int mid, int end){
 	
 	/*
-	  ---
+	  takes data[start] through data[mid] and data[mid + 1] through data[end]
 	 */
 	
     }
