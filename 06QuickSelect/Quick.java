@@ -39,7 +39,9 @@ public class Quick{
 	int gt = end;
 	while (i <= gt){
 	    if (data[i] == data[lt]){
-		i++;
+		if (i < data.length - 1){
+		    i++;
+		}
 	    }
 	    if (data[i] > data[lt]){
 		swap(data, i, gt);
@@ -57,7 +59,7 @@ public class Quick{
     }
 
     public static int randGen(int min, int max){
-	int range = (max - min) + 1;     
+	int range = (max - min);     
 	return (int)(Math.random() * range) + min;
     }
 
@@ -68,7 +70,7 @@ public class Quick{
     }
 
     public static void main(String[]args){
-	int[] arr = {7989, 14, 98, 2, 23, 4, 234, 456, 4};
+	int[] arr = {7989, 14, 14, 14, 14, 4, 14, 14, 4};
 	//System.out.println(Arrays.toString(partition(arr, 0, arr.length - 1)));
 	System.out.println(Arrays.toString(arr));
 	for (int x = 1; x <= arr.length; x++){
