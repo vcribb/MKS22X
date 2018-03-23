@@ -4,6 +4,7 @@ public class Quick{
 
     public static void quicksort(int[] ary){
 	sorthelp(ary, 0, ary.length - 1);
+	//System.out.println(Arrays.toString(ary));
     }
 
     public static void sorthelp(int[] ary, int start, int end){
@@ -39,18 +40,16 @@ public class Quick{
 	int gt = end;
 	while (i <= gt){
 	    if (data[i] == data[lt]){
-		if (i < data.length - 1){
-		    i++;
-		}
+		i+=1;
 	    }
-	    if (data[i] > data[lt]){
+	    else if (data[i] > data[lt]){
 		swap(data, i, gt);
-		gt--;
+		gt-=1;
 	    }
 	    else{
 		swap(data, i, lt);
-		lt++;
-		i++;
+		lt+=1;
+		i+=1;
 	    }
 	    //System.out.println(Arrays.toString(data));
 	}
