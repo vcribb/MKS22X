@@ -32,7 +32,12 @@ public class Merge{
 	
 	/*
 	  takes data[start] through data[mid] and data[mid + 1] through data[end]
+	  goes through each and compares values
+	  [0, 4, 11, 99] and [9, 12, 124, 999]
+	  [0,4,9,11,12,99,124,999]
 	 */
+
+	
 	
     }
 
