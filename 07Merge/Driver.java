@@ -63,7 +63,6 @@ public class Driver extends Merge{
 
 	int [] start = makeArray(size,type);
 	int [] result = Arrays.copyOf(start,start.length);
-	System.out.println(Arrays.toString(start));
 	Arrays.sort(result);
     
 	long startTime = System.currentTimeMillis();
