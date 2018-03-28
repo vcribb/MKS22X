@@ -11,15 +11,15 @@ public class MyLinkedList{
 	    data = d;
 	}
 
-	private Node getNext(){
+	public Node getNext(){
 	    return next;
 	}
 
-	private Node getPrev(){
+	public Node getPrev(){
 	    return prev;
 	}
 
-	private void setNext(Node n){
+	public void setNext(Node n){
 	    next = n;
 	}
 
@@ -31,7 +31,7 @@ public class MyLinkedList{
 	    return data;
 	}
 
-	private void setValue(int d){
+	public void setValue(int d){
 	    data = d;
 	}
 
@@ -50,10 +50,16 @@ public class MyLinkedList{
 	length = 0;
     }
 
-    public MyLinkedList(Node f, Node l, int len){
+    public MyLinkedList(Node f, Node l){
 	first = f;
 	last = l;
-	length = len;
+	int ans = 0;
+	Node n = first;
+	while (n != null){
+	    ans++;
+	    n = n.getNext();
+	}
+	length = ans;
     }
 
     public String toString(){
@@ -84,26 +90,27 @@ public class MyLinkedList{
     }
 
     public int size(){
-	Node n = first;
-	int ans = 0;
-	while (n != null){
-	    ans++;
-	    n = n.getNext();
-	}
-	return ans;
+	return length;
     }
 
     public boolean add(int value){
 	Node n = new Node(last, null, value);
-	last.setNext(n);
+	if (size() > 0){
+	    last.setNext(n);
+	}
+	else{
+	    first = n;
+	}
+	length++;
+	last = n;
 	return true;
     }
 
     public static void main(String[] args){
-	Node s = new Node(null, null, 4);
-	Node l = new Node(s, null, 10);
-	s.setNext(l);
-	MyLinkedList list = new MyLinkedList(s, l, 10);
+	MyLinkedList list = new MyLinkedList();
+	System.out.println(list.toString());
+	list.add(4);
+	list.add(10);
 	System.out.println(list.toString());
     }
 
