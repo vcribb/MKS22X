@@ -7,16 +7,16 @@ public class Merge{
 	    return;
 	}
 	int[] temp = new int[data.length];
-	for (int x = 0; x < data.length; x++){
-	    temp[x] = data[x];
-	}
 	msort(data, temp, 0, data.length - 1);
-	//System.out.println(Arrays.toString(data));
     }
 
     private static void msort(int[]data, int[]temp, int start, int end){
 	if (start >= end){
 	    return;
+	}
+
+	for (int x = start; x <= end; x++){
+	    temp[x] = data[x];
 	}
 	
 	int mid = (start + end) / 2;
@@ -32,36 +32,33 @@ public class Merge{
     private static void merge(int[]data, int[]temp, int start, int mid, int end){
 	int i = start;
 	int j = mid + 1;
+	int index = start;
 
 	//adds elements of data into temp one by one
-	for (int index = start; index <= end; index++){
-	    if (j > end){
-		temp[index] = data[i];
+        while (i <= mid && j <= end){
+	    if (temp[i] < temp[j]){
+		data[index] = temp[i];
 		i++;
 	    }
 	    else{
-		if (i > mid){
-		    temp[index] = data[j];
-		    j++;
-		}
-		else{
-		    if (data[i] < data[j]){
-			temp[index] = data[i];
-			i++;
-		    }
-		    else{
-			temp[index] = data[j];
-			j++;
-		    }
-		}
+		data[index] = temp[j];
+		j++;
 	    }
-	    //System.out.println(Arrays.toString(temp));
+	    index++;
 	}
-	
-	for (int x = 0; x < data.length; x++){
-	    data[x] = temp[x];
+
+	//edge cases
+	while (i <= mid){
+	    data[index] = temp[i];
+	    index++;
+	    i++;
 	}
-	
+
+	while (j <= end){
+	    data[index] = temp[j];
+	    index++;
+	    j++;
+	}
     }
 
 }
