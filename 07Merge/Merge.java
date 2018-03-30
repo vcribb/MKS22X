@@ -6,17 +6,18 @@ public class Merge{
 	if (data.length < 2){
 	    return;
 	}
+	
 	int[] temp = new int[data.length];
+	for (int x = 0; x < data.length; x++){
+	    temp[x] = data[x];
+	}
+	
 	msort(data, temp, 0, data.length - 1);
     }
 
     private static void msort(int[]data, int[]temp, int start, int end){
 	if (start >= end){
 	    return;
-	}
-
-	for (int x = start; x <= end; x++){
-	    temp[x] = data[x];
 	}
 	
 	int mid = (start + end) / 2;
@@ -58,18 +59,6 @@ public class Merge{
 	    data[index] = temp[j];
 	    index++;
 	    j++;
-	}
-    }
-
-    private static void insertion(int[]data){
-	for (int x = 0; x < data.length; x++){
-	    for (int y = x; y > 0; y--){
-		if (data[y] < data[y - 1]){
-		    int temp = data[y];
-		    data[y] = data[y - 1];
-		    data[y - 1] = temp;
-		}
-	    }
 	}
     }
 
