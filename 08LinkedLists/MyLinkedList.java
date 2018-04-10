@@ -50,18 +50,6 @@ public class MyLinkedList{
 	length = 0;
     }
 
-    public MyLinkedList(Node f, Node l){
-	first = f;
-	last = l;
-	int ans = 0;
-	Node n = first;
-	while (n != null){
-	    ans++;
-	    n = n.getNext();
-	}
-	length = ans;
-    }
-
     public String toString(){
 	String s = "[";
 	Node n = first;
