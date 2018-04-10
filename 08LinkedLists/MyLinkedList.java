@@ -65,12 +65,12 @@ public class MyLinkedList{
     public String toString(){
 	String s = "[";
 	Node n = first;
-	for (int x = 0; x < size(); x++){
-	    s += n.toString() + ", ";
+	while (n != null){
+	    s += n;
+	    if (n.getNext() != null){
+		s += ", ";
+	    }
 	    n = n.getNext();
-	}
-	if (s.length() > 1){
-	    s = s.substring(0, s.length() - 2);
 	}
 	s += "]";
 	return s;
@@ -122,9 +122,10 @@ public class MyLinkedList{
     }
 
     public boolean add(Integer value){
-	Node n = new Node(last, null, value);
+	Node n = new Node(null, null, value);
 	if (size() > 0){
 	    last.setNext(n);
+	    n.setPrev(last);
 	}
 	else{
 	    first = n;
@@ -143,19 +144,23 @@ public class MyLinkedList{
 	    return;
 	}
 	if (index == 0){
-	    Node n = new Node(null, first, value);
+	    Node n = new Node(null, null, value);
 	    first.setPrev(n);
+	    n.setNext(first);
 	    first = n;
 	    length++;
 	    return;
 	}
+	Node n = new Node(null, null, value);
 	Node temp = first;
 	for (int x = 0; x < index - 1; x++){
 	    temp = temp.getNext();
 	}
-	Node n = new Node(temp.getPrev(), temp.getNext(), value);
-	temp.getPrev().setNext(n);
-	temp.getNext().setPrev(n);
+	Node temp2 = temp.getNext();
+	temp.setNext(n);
+	n.setPrev(temp);
+	temp2.setPrev(n);
+	n.setNext(temp2);
 	length++;
     }
 
@@ -194,6 +199,18 @@ public class MyLinkedList{
 	Node n = first;
 	for (int x = 0; x < index; x++){
 	    n = n.getNext();
+	}
+	if (n.getPrev() == null){
+	    n.getNext().setPrev(null);
+	    first = n.getNext();
+	    length--;
+	    return n.getValue();
+	}
+	if (n.getNext() == null){
+	    n.getPrev().setNext(null);
+	    last = n.getPrev();
+	    length--;
+	    return n.getValue();
 	}
 	Node m = n.getNext();
 	Node k = n.getPrev();
@@ -263,7 +280,7 @@ public class MyLinkedList{
 	    System.out.println("This size is out of bounds");
 	} //prints "This size is out of bounds"
 
-	System.out.println("\nTesing add(int index, Integer value)");
+	System.out.println("\nTesting add(int index, Integer value)");
 	for (int i = 0; i < 9; i++){
 	    a.add(i, new Integer(i * 3));
 	    System.out.println("index added: " + i + " LinkedList: " + a.toString());
@@ -287,6 +304,7 @@ public class MyLinkedList{
 	System.out.println("Original LinkedList: " + a.toString());
 	System.out.println("data removed: " + a.remove(0) + " index removed: 0"); //removes 0
 	System.out.println("LinkedList: " + a.toString());
+	System.out.println(a.size());
 	System.out.println("data removed: " + a.remove(a.size() - 1) + " index removed: 18"); //removes 100
 	System.out.println("LinkedList: " + a.toString());
 	System.out.println("data removed: " + a.remove(2) + " index removed: 2 "); //removes 9
