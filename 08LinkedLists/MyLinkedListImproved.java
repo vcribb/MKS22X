@@ -1,4 +1,6 @@
-public class MyLinkedListImproved<T>{
+import java.util.*;
+
+public class MyLinkedListImproved<T> implements Iterable<T>{
 
     private class Node{
 
@@ -39,6 +41,34 @@ public class MyLinkedListImproved<T>{
 	    return data+"";
 	}
 
+    }
+
+    private class LLIterator implements Iterator<T>{
+
+	Node n;
+
+	public LLIterator(Node nxt){
+	    n = nxt;
+	}
+
+	public boolean hasNext(){
+	    return n != null;
+	}
+
+	public T next(){
+	    if (hasNext()){
+		n = n.getNext();
+	    }
+	    else{
+		throw new NoSuchElementException();
+	    }
+	    return n.getPrev().getValue();
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+	
     }
 
     Node first, last;
@@ -208,13 +238,21 @@ public class MyLinkedListImproved<T>{
 	return n.getValue();
     }
 
+    public Iterator<T> iterator(){
+	return new LLIterator(first);
+    }
+
     public static void main(String[]args){
 	MyLinkedListImproved<String> n = new MyLinkedListImproved<>();
         n.add("fish");
 	System.out.println(n);
 	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
         m.add(new Integer(0));
-	System.out.println(m);
+        m.add(new Integer(1));
+	m.add(new Integer(2));
+	for (T x : m){
+	    System.out.println(x);
+	}
     }
 
 }
