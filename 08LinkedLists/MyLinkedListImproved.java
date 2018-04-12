@@ -57,12 +57,13 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 
 	public T next(){
 	    if (hasNext()){
+		T m = n.getValue();
 		n = n.getNext();
+		return m;
 	    }
 	    else{
 		throw new NoSuchElementException();
 	    }
-	    return n.getPrev().getValue();
 	}
 
 	public void remove(){
@@ -247,10 +248,10 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
         n.add("fish");
 	System.out.println(n);
 	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
-        m.add(new Integer(0));
-        m.add(new Integer(1));
-	m.add(new Integer(2));
-	for (T x : m){
+	for (int x = 0; x < 50; x++){
+	    m.add(new Integer(x));
+	}
+	for (Integer x : m){
 	    System.out.println(x);
 	}
     }
