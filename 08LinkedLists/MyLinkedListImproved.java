@@ -243,14 +243,25 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 	return new LLIterator(first);
     }
 
+    public int max(){
+	if (size() == 0){
+	    return -1;
+	}
+	return 0;
+    }
+
+    public int min(){
+	if (size() == 0){
+	    return -1;
+	}
+	return 0;
+    }
+
     public static void main(String[]args){
 	MyLinkedListImproved<String> n = new MyLinkedListImproved<>();
         n.add("fish");
 	System.out.println(n);
 	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
-	for (int x = 0; x < 50; x++){
-	    m.add(new Integer(x));
-	}
 	for (Integer x : m){
 	    System.out.println(x);
 	}
