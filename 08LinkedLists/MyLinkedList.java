@@ -33,7 +33,7 @@ public class MyLinkedList{
 	    return data;
 	}
 
-	private void setValue(T d){
+	private void setValue(int d){
 	    data = d;
 	}
 
@@ -46,10 +46,8 @@ public class MyLinkedList{
     private Node first, last;
     private int length;
 
-    public MyLinkedListImproved(){
-	first = null;
-	last = null;
-	length = 0;
+    public MyLinkedList(){
+        
     }
 
     public String toString(){
@@ -72,7 +70,7 @@ public class MyLinkedList{
 	length = 0;
     }
 
-    public int get(int index){
+    public Integer get(int index){
 	if (index < 0 || index >= size()){
 	    throw new IndexOutOfBoundsException(":(");
 	}
@@ -91,7 +89,7 @@ public class MyLinkedList{
 	for (int x = 0; x < index; x++){
 	    n = n.getNext();
 	}
-	T ans = n.getValue();
+	int ans = n.getValue();
 	n.setValue(value);
 	return ans;
     }
@@ -208,25 +206,6 @@ public class MyLinkedList{
 	k.setNext(m);
 	length--;
 	return n.getValue();
-    }
-
-    public static void main(String[]args){
-	MyLinkedListImproved<String> n = new MyLinkedListImproved<>();
-        n.add("fish");
-	System.out.println(n);
-	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
-	for (int x = 1; x < 10; x++){
-	    m.add(10 - x);
-	}
-	MyLinkedListImproved<Integer> r = new MyLinkedListImproved<>();
-	for (int x = 1; x < 10; x++){
-	    r.add(x);
-	}
-	m.extend(r);
-	System.out.println(m.toString());
-	System.out.println(r.toString());
-	System.out.println(m.min());
-	System.out.println(m.max());
     }
 
 }
