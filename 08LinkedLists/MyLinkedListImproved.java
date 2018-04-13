@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class MyLinkedListImproved<T> implements Iterable<T>{
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
 
     private class Node{
 
-	Node next, prev;
-	T data;
+	private Node next, prev;
+	private T data;
 
 	private Node(Node n, Node p, T d){
 	    next = n;
@@ -72,8 +72,8 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 	
     }
 
-    Node first, last;
-    int length;
+    private Node first, last;
+    private int length;
 
     public MyLinkedListImproved(){
 	first = null;
@@ -247,14 +247,34 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 	if (size() == 0){
 	    return -1;
 	}
-	return 0;
+	Node n = first;
+	T value = first.getValue();
+	int index = 0;
+	int maxindex = 0;
+	for (T x : this){
+	    if (x.compareTo(value) > 0){
+		maxindex = index;
+	    }
+	    index++;
+	}
+	return maxindex;
     }
 
     public int min(){
 	if (size() == 0){
 	    return -1;
 	}
-	return 0;
+	Node n = first;
+	T value = first.getValue();
+	int index = 0;
+	int minindex = 0;
+	for (T x : this){
+	    if (x.compareTo(value) < 0){
+		minindex = index;
+	    }
+	    index++;
+	}
+	return minindex;
     }
 
     public static void main(String[]args){
@@ -262,9 +282,11 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
         n.add("fish");
 	System.out.println(n);
 	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
-	for (Integer x : m){
-	    System.out.println(x);
+	for (int x = 0; x < 50; x++){
+	    m.add(50 - x);
 	}
+	System.out.println(m.min());
+	System.out.println(m.max());
     }
 
 }
