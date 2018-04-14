@@ -72,7 +72,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	
     }
 
-    private Node first, last;
+    public Node first, last;
     private int length;
 
     public MyLinkedListImproved(){
