@@ -40,6 +40,10 @@ public class Sort extends MyLinkedListImproved{
 	}
     }
 
+    public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer> data){
+	radixsort(data);
+    }
+
     private static void radixpositive(MyLinkedListImproved<Integer> data){
 
 	//create bucket array
@@ -126,7 +130,7 @@ public class Sort extends MyLinkedListImproved{
 
 	//Sorts data and times the sort
 	long end,start = System.currentTimeMillis();
-	radixsort(data);
+	radixsortIncludingNegatives(data);
 	end = System.currentTimeMillis();
 
 	//Sorts the array
@@ -169,7 +173,7 @@ public class Sort extends MyLinkedListImproved{
 
 	//Sorts data and times the sort
 	start = System.currentTimeMillis();
-	radixsort(data);
+	radixsortIncludingNegatives(data);
 	end = System.currentTimeMillis();
 
 	//Sorts the array
@@ -214,7 +218,7 @@ public class Sort extends MyLinkedListImproved{
 
 	//Sorts data and times the sort
 	start = System.currentTimeMillis();
-	radixsort(data);
+	radixsortIncludingNegatives(data);
 	end = System.currentTimeMillis();
 
 	//Sorts the array
@@ -248,7 +252,7 @@ public class Sort extends MyLinkedListImproved{
 	correctData = new int[0];
 
 	start = System.currentTimeMillis();
-	radixsort(data);
+	radixsortIncludingNegatives(data);
 	end = System.currentTimeMillis();
 
 	//Sorts the array
@@ -286,7 +290,7 @@ public class Sort extends MyLinkedListImproved{
 	correctData[0] = temp;
 
 	start = System.currentTimeMillis();
-	radixsort(data);
+	radixsortIncludingNegatives(data);
 	end = System.currentTimeMillis();
 
 	//Sorts the array
@@ -324,7 +328,7 @@ public class Sort extends MyLinkedListImproved{
 	correctData[0] = temp;
 
 	start = System.currentTimeMillis();
-	radixsort(data);
+	radixsortIncludingNegatives(data);
 	end = System.currentTimeMillis();
 
 	//Sorts the array
