@@ -23,6 +23,18 @@ public class MyDeque<E>{
 	end = 0;
     }
 
+    @SuppressWarnings("unchecked")
+    private void resize(){
+	E[] d = (E[])new Object[size() * 2 + 1];
+	for (int temp = 0; temp < size(); temp++){
+	    d[temp] = (this.getFirst());
+	    this.removeFirst();
+	}
+	this.start = d.length - 1;
+	this.end = size();
+	this.data = d;
+    }
+
     public int size(){
 	return data.length;
     }
@@ -34,8 +46,10 @@ public class MyDeque<E>{
 	if (data[start] == null){
 	    data[start] = element;
 	    start = (start - 1) % size();
+	    return;
 	}
-	//resize
+	resize();
+	addFirst(element);
     }
 
     public void addLast(E element){
@@ -45,8 +59,10 @@ public class MyDeque<E>{
 	if (data[start] == null){
 	    data[end] = element;
 	    end = (end + 1) % size();
+	    return;
 	}
-	//resize
+	resize();
+	addLast(element);
     }
 
     public E removeFirst(){
