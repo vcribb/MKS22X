@@ -13,6 +13,8 @@ public class Calculator{
     }
     
     public static double eval(String s){
+	//split string on the spaces
+	
 	return 0;
     }
 
