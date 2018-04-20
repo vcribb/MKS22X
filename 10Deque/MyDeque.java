@@ -30,7 +30,7 @@ public class MyDeque<E>{
     private void resize(){
 	E[] d = (E[])new Object[data.length * 2 + 1];
 	for (int temp = 0; temp < data.length; temp++){
-	    d[temp] = data[(start + temp) % data.length];
+	    d[temp] = data[(start + temp + 1) % data.length];
 	}
 	this.start = d.length - 1;
 	this.end = data.length;
@@ -47,7 +47,7 @@ public class MyDeque<E>{
 	}
 	if (data[start] == null){
 	    data[start] = element;
-	    start = (start - 1) % data.length;
+	    start = (start + data.length - 1) % data.length;
 	    len++;
 	    return;
 	}
@@ -59,7 +59,7 @@ public class MyDeque<E>{
 	if (element == null){
 	    throw new NullPointerException();
 	}
-	if (data[end] == null){
+	if (data[start] == null){
 	    data[end] = element;
 	    end = (end + 1) % data.length;
 	    len++;
@@ -105,22 +105,23 @@ public class MyDeque<E>{
 	return data[(end - 1) % data.length];
     }
 
-    public String toString(){
-	String str = "";
-	for (int x = 0; x < size(); x++){
-	    str += data[(start + 1 + x) % data.length] + " ";
-	}
-	return str;
-    }
-
     public static void main(String[] args){
 	MyDeque<Integer> e = new MyDeque<Integer>();
 	System.out.println(e.size());
-	for (int x = 0; x < 11; x++){
+	for (int x = 0; x < 16; x++){
 	    e.addLast(new Integer(x));
 	}
 	System.out.println(e.size());
-	System.out.println(e);
+	for (int x = 0; x < 16; x++){
+	    e.addFirst(new Integer(x));
+	}
+	System.out.println(e.size());
+	while (e.size() > 0){
+	    System.out.println(e.getFirst());
+	    System.out.println(e.getLast());
+	    e.removeFirst();
+	    e.removeLast();
+	}
     }
     
 }
