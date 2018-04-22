@@ -109,6 +109,7 @@ public class MyDeque<E>{
 	return data[end];
     }
 
+    //Crystal's toString/main
     public String toString(){
 	String ans = "[";
 	if(start < end){
