@@ -62,24 +62,48 @@ public class MyHeap <T extends Comparable<T>>{
     }
 
     public void shiftdown(int pos){
-	//for left side
-	if ((max && (pos * 2 + 1) < size() && data[pos].compareTo(data[pos * 2 + 1]) < 0
-	     && ((pos * 2 + 2) > size() - 1 || data[pos * 2 + 2].compareTo(data[pos * 2 + 1]) <= 0)) ||
-	    (!max && (pos * 2 + 1) < size() && data[pos].compareTo(data[pos * 2 + 1]) > 0
-	     && ((pos * 2 + 2) > size() - 1 || data[pos * 2 + 2].compareTo(data[pos * 2 + 1]) >= 0))){
-	    T temp = data[pos];
-	    data[pos] = data[pos * 2 + 1];
-	    data[pos * 2 + 1] = temp;
-	}
-	//for right side
-	else{
-	    if ((max && (pos * 2 + 2) < size() && data[pos].compareTo(data[pos * 2 + 2]) < 0
-		 && data[pos * 2 + 1].compareTo(data[pos * 2 + 2]) <= 0) ||
-		(!max && (pos * 2 + 2) < size() && data[pos].compareTo(data[pos * 2 + 2]) > 0
-		 && data[pos * 2 + 1].compareTo(data[pos * 2 + 2]) >= 0)){
+	int left = pos * 2 + 1;
+	int right = pos * 2 + 2;
+	//if left and right are both greater/less than pos
+	if ((max && left < size() && right < size() && data[pos].compareTo(data[left]) < 0 &&
+	     data[pos].compareTo(data[right]) < 0) ||
+	    (!max && left < size() && right < size() && data[pos].compareTo(data[left]) > 0 &&
+	     data[pos].compareTo(data[right]) > 0)){
+	    if ((max && data[left].compareTo(data[right]) > 0) || (!max && data[left].compareTo(data[right]) < 0)){
 		T temp = data[pos];
-		data[pos] = data[pos * 2 + 2];
-		data[pos * 2 + 2] = temp;
+		data[pos] = data[left];
+		data[left] = temp;
+		shiftdown(left);
+	    }
+	    else{
+		T temp = data[pos];
+		data[pos] = data[right];
+		data[right] = temp;
+		shiftdown(right);
+	    }
+	}
+        else{
+	    //if just left is greater/less than pos
+	    if ((max && left < size() && data[pos].compareTo(data[left]) < 0 &&
+		 (right >= size() || data[pos].compareTo(data[right]) >= 0)) ||
+		(!max && left < size() && data[pos].compareTo(data[left]) > 0 &&
+		 (right >= size() || data[pos].compareTo(data[right]) <= 0))){
+		T temp = data[pos];
+		data[pos] = data[left];
+		data[left] = temp;
+		shiftdown(left);
+	    }
+	    else{
+		//if just right is greater/less than pos
+		if ((max && right < size() && data[pos].compareTo(data[right]) < 0 &&
+		     data[pos].compareTo(data[left]) >= 0) ||
+		    (!max && right < size() && data[pos].compareTo(data[right]) > 0 &&
+		     data[pos].compareTo(data[left]) <= 0)){
+		    T temp = data[pos];
+		    data[pos] = data[right];
+		    data[right] = temp;
+		    shiftdown(right);
+		}
 	    }
 	}
     }
@@ -99,23 +123,6 @@ public class MyHeap <T extends Comparable<T>>{
 	}
 	ans += "]";
 	return ans;
-    }
-
-    public static void main(String[]args){
-	MyHeap<Integer> a = new MyHeap<Integer>(true);
-	MyHeap<Integer> b = new MyHeap<Integer>(false);
-	for (int i = 10; i > 0; i--){
-	    a.add(i);
-	    b.add(i);
-	}
-	for (int x = 0; x < 7; x++){
-	    a.remove();
-	    b.remove();
-	}
-	System.out.println(a);
-	System.out.println(b);
-	System.out.println(a.peek() + " " + a.size());
-	System.out.println(b.peek() + " " + b.size());
     }
 
 }
