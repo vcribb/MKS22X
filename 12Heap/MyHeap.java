@@ -41,7 +41,7 @@ public class MyHeap <T extends Comparable<T>>{
 	len++;
     }
 
-    public void shiftup(int pos){
+    private void shiftup(int pos){
 	if ((max && data[pos].compareTo(data[(int)((pos - 1) / 2)]) > 0) ||
 	    (!max && data[pos].compareTo(data[(int)((pos - 1) / 2)]) < 0)){
 	    T temp = data[pos];
@@ -61,7 +61,7 @@ public class MyHeap <T extends Comparable<T>>{
 	return ans;
     }
 
-    public void shiftdown(int pos){
+    private void shiftdown(int pos){
 	int left = pos * 2 + 1;
 	int right = pos * 2 + 2;
 	//if left and right are both greater/less than pos
