@@ -10,11 +10,6 @@ public class Maze{
     Location start,end;
     private char[][]maze;
 
-    /*
-      YOU MUST COMPLETE THIS METHOD!!!
-      YOU MUST COMPLETE THIS METHOD!!!
-      YOU MUST COMPLETE THIS METHOD!!!
-    */
     public Location[] getNeighbors(Location L){
 	return null;
     }
