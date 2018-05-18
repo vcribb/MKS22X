@@ -7,13 +7,13 @@ public class RunningMedian extends MyHeap{
     private int size;
     
     public RunningMedian(){
-	s = new MyHeap<Double>(true);
+	s = new MyHeap<Double>();
 	b = new MyHeap<Double>(false);
 	size = 0;
     }
     
     public void add(double x){
-	if (size() == 0 || x < b.peek()){
+	if (size() == 0 || x > b.peek()){
 	    b.add(x);
 	}
 	else{
@@ -35,11 +35,17 @@ public class RunningMedian extends MyHeap{
 	    throw new NoSuchElementException();
 	}
 	if (s.size() > b.size()){
+	    System.out.println(s);
+	    System.out.println(b);
 	    return s.peek();
 	}
 	if (b.size() > s.size()){
+	    System.out.println(s);
+	    System.out.println(b);
 	    return b.peek();
 	}
+	System.out.println(s);
+	System.out.println(b);
 	return (s.peek() + b.peek()) / 2.0;
     }
 
@@ -53,8 +59,10 @@ public class RunningMedian extends MyHeap{
 	x.add(2);
 	x.add(10);
 	x.add(7);
+	x.add(5);
+	x.add(13);
+	x.add(7);
 	System.out.println(x.getMedian());
-	
     }
     
 }

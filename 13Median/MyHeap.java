@@ -125,4 +125,17 @@ public class MyHeap <T extends Comparable<T>>{
 	return ans;
     }
 
+    public static void main(String[] args){
+	MyHeap<Double> s = new MyHeap<Double>();
+	MyHeap<Double> b = new MyHeap<Double>(false);
+	for (int x = 0; x < 10; x++){
+	    s.add(x * 1.0);
+	}
+	for (int x = 10; x > 0; x--){
+	    b.add(x * 1.0);
+	}
+	System.out.println(s);
+	System.out.println(b);
+    }
+
 }
