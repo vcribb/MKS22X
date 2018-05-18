@@ -79,7 +79,7 @@ public class Maze{
         if(animate){
             clearTerminal();
 	    System.out.println(this);
-            wait(10);
+            wait(5);
         }
 	if (maze[row][col] == 'E'){
 	    return sum;
