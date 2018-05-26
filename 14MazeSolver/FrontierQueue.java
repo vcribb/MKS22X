@@ -9,7 +9,7 @@ public class FrontierQueue implements Frontier{
     }
     
     public Location next(){
-	return locations.peek();
+	return locations.remove();
     }
 
     public void add(Location n){

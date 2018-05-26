@@ -8,10 +8,72 @@ public class Maze{
     private static final String HIDE_CURSOR =  "\033[?25l";
     private static final String SHOW_CURSOR =  "\033[?25h";
     Location start,end;
+    private boolean astar = false;
     private char[][]maze;
 
+    public void setA(boolean b){
+	astar = b;
+    }
+    
     public Location[] getNeighbors(Location L){
-	return null;
+	Location[] locs = new Location[4];
+	for (int x = 0; x < 4; x++){
+	    if (allowed(L.getx() + 1, L.gety())){
+		int enddist = Math.abs(end.getx() - L.getx() - 1) + Math.abs(end.gety() - L.gety());
+		int p = 0;
+		if (astar){
+		    p = enddist + L.getdist();
+		}
+		else{
+		    p = enddist;
+		}
+		locs[x] = new Location(L.getx() + 1, L.gety(), L, p, L.getdist() + 1);
+	    }
+	    if (allowed(L.getx() - 1, L.gety())){
+		int enddist = Math.abs(end.getx() - L.getx() + 1) + Math.abs(end.gety() - L.gety());
+		int p = 0;
+		if (astar){
+		    p = enddist + L.getdist();
+		}
+		else{
+		    p = enddist;
+		}
+		locs[x] = new Location(L.getx() - 1, L.gety(), L, p, L.getdist() + 1);
+	    }
+	    if (allowed(L.getx(), L.gety() + 1)){
+		int enddist = Math.abs(end.getx() - L.getx()) + Math.abs(end.gety() - L.gety() - 1);
+		int p = 0;
+		if (astar){
+		    p = enddist + L.getdist();
+		}
+		else{
+		    p = enddist;
+		}
+		locs[x] = new Location(L.getx(), L.gety() + 1, L, p, L.getdist() + 1);
+	    }
+	    if (allowed(L.getx(), L.gety() - 1)){
+		int enddist = Math.abs(end.getx() - L.getx()) + Math.abs(end.gety() - L.gety() + 1);
+		int p = 0;
+		if (astar){
+		    p = enddist + L.getdist();
+		}
+		else{
+		    p = enddist;
+		}
+		locs[x] = new Location(L.getx(), L.gety() - 1, L, p, L.getdist() + 1);
+	    }
+	}
+	return locs;
+    }
+
+    public boolean allowed(int x, int y){
+	if (x < 0 || x >= maze.length || y < 0 || y >= maze.length){
+	    return false;
+	}
+	if (maze[x][y] == ' ' || maze[x][y] == 'E'){
+	    return true;
+	}
+	return false;
     }
 
     public Location getStart(){
@@ -80,14 +142,8 @@ public class Maze{
 	    System.exit(0);
 
 	}
-
-	/*
-	  THIS IS AN IMPORTANT PART BECAUSE YOU WILL NEED TO CHANGE IT LATER!
-	  The start/end Locations may need more information later when we add
-	  other kinds of frontiers!
-	*/
-	end = new Location(endr,endc,null);
-	start = new Location(startr,startc,null);
+	end = new Location(endr, endc, null, 0, 0);
+	start = new Location(startr, startc, null, Math.abs(endc - startc) + Math.abs(endr - startr), 0);
     }
 
     public String toStringColor(){
