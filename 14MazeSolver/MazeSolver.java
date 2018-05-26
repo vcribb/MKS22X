@@ -27,7 +27,6 @@ public class MazeSolver{
 	}
 	frontier.add(maze.getStart());
 	while (frontier.hasNext()){
-	    System.out.println(maze.toStringColor());
 	    Location n = frontier.next();
 	    if (!(n.equals(maze.getStart()))){
 		maze.set(n.getx(), n.gety(), '.');
