@@ -15,7 +15,7 @@ public class FrontierPriorityQueue implements Frontier{
     }
 
     public boolean hasNext(){
-	return locations.size() != 0;
+	return locations.size() > 0;
     }
     
 }

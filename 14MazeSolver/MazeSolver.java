@@ -2,7 +2,6 @@ public class MazeSolver{
     
     private Maze maze;
     private Frontier frontier;
-    private boolean a;
 
     public MazeSolver(String mazeText){
 	maze = new Maze(mazeText);
@@ -13,7 +12,6 @@ public class MazeSolver{
     }
 
     public boolean solve(int mode){
-	a = false;
 	if (mode == 0){
 	    frontier = new FrontierQueue();
 	}
@@ -27,19 +25,20 @@ public class MazeSolver{
 	    frontier = new FrontierPriorityQueue();
 	    maze.setA(true);
 	}
+	frontier.add(maze.getStart());
 	while (frontier.hasNext()){
 	    System.out.println(maze.toStringColor());
-	    Location next = frontier.next();
-	    if (next.compareTo(maze.getStart()) != 0){
-		maze.set(next.getx(), next.gety(), '.');
+	    Location n = frontier.next();
+	    if (!(n.equals(maze.getStart()))){
+		maze.set(n.getx(), n.gety(), '.');
 	    }
-	    Location[] locs = maze.getNeighbors(next);
+	    Location[] locs = maze.getNeighbors(n);
 	    for (Location l : locs){
 		if (l != null){
-		    if (l.compareTo(maze.getEnd()) == 0){
-			while (next.compareTo(maze.getStart()) != 0){
-			    maze.set(next.getx(), next.gety(), '@');
-			    next = next.getprev();
+		    if (l.equals(maze.getEnd())){
+			while (!(n.equals(maze.getStart()))){
+			    maze.set(n.getx(), n.gety(), '@');
+			    n = n.getprev();
 			}
 			return true;
 		    }
@@ -57,6 +56,6 @@ public class MazeSolver{
 
     public static void main(String[] args){
 	MazeSolver thing = new MazeSolver("text.txt");
-	System.out.println(thing.solve(0));
+	System.out.println(thing.solve(2));
     }
 }

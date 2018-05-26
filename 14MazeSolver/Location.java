@@ -39,4 +39,11 @@ public class Location implements Comparable<Location>{
     public int compareTo(Location l){
 	return getpriority() - l.getpriority();
     }
+
+    public boolean equals(Location l){
+	if (x == l.getx()){
+	    return y == l.gety();
+	}
+	return false;
+    }
 }

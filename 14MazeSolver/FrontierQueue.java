@@ -2,7 +2,7 @@ import java.util.*;
 
 public class FrontierQueue implements Frontier{
 
-    private Queue<Location> locations;
+    private LinkedList<Location> locations;
 
     public FrontierQueue(){
 	locations = new LinkedList<Location>();
@@ -17,7 +17,7 @@ public class FrontierQueue implements Frontier{
     }
 
     public boolean hasNext(){
-	return locations.size() != 0;
+	return locations.peek() != null;
     }
 
 }

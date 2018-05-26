@@ -2,10 +2,10 @@ import java.util.*;
 
 public class FrontierStack implements Frontier{
 
-    private LinkedList<Location> locations;
+    private Stack<Location> locations;
 
     public FrontierStack(){
-	locations = new LinkedList<Location>();
+	locations = new Stack<Location>();
     }
 
     public Location next(){
